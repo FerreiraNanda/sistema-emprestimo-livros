@@ -1,0 +1,18 @@
+/* src/component/loan/LoanForm.style.css */
+.form-container {
+    text-align: center;
+}
+
+select, input[type="date"] {
+    height: 30px;
+    padding-left: 15px;
+    margin: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+input[type="button"],
+input[type="submit"] {
+    height: 25px;
+    margin-left: 5px;
+}
