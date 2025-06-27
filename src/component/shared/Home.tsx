@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { IUser, UserPageEnum } from "../user/User.type"
 import { IBook, BookPageEnum } from "../book/Book.type";
 import { ILoan, LoanPageEnum } from "../loan/Loan.type";
-import { ICategory,CategoryPageEnum } from "../category/Category.type";
+import { IEmployee, EmployeePageEnum } from "../employee/Employee.type";
 import "./Home.style.css"
 
 import UserList from "../user/UserList";
@@ -17,11 +17,11 @@ import AddLoan from "../loan/AddLoan";
 import EditLoan from "../loan/EditLoan";
 import LoanList from "../loan/LoanList";
 
-import AddCategory from "../category/AddCategory";
-import EditCategory from "../category/EditCategory";
-import CategoryList from "../category/CategoryList";
+import AddEmployee from "../employee/AddEmployee";
+import EditEmployee from "../employee/EditEmployee";
+import EmployeeList from "../employee/EmployeeList";
 const Home = () => {
-    const [activeTab, setActiveTab] = useState<'books' | 'users' | 'loans' | 'categories'>('books');
+    const [activeTab, setActiveTab] = useState<'books' | 'users' | 'loans' | 'employees'>('books');
 
     const [userList, setUserList] = useState<IUser[]>([]);
     const [userPage, setUserPage] = useState<UserPageEnum>(UserPageEnum.list);
@@ -30,35 +30,26 @@ const Home = () => {
     const [bookList, setBookList] = useState<IBook[]>([]);
     const [bookPage, setBookPage] = useState<BookPageEnum>(BookPageEnum.list);
     const [dataToEditBook, setDataToEditBook] = useState<IBook | null>(null);
+    const generosDisponiveis = ["Ficção", "História", "Tecnologia", "Romance", "Terror", "Fantasia", "Biografia", "Autoajuda"];
 
     const [loanList, setLoanList] = useState<ILoan[]>([]);
     const [loanPage, setLoanPage] = useState<LoanPageEnum>(LoanPageEnum.list);
     const [dataToEditLoan, setDataToEditLoan] = useState<ILoan | null>(null);
 
-    const [categoryList, setCategoryList] = useState<ICategory[]>([]);
-    const [categoryPage, setCategoryPage] = useState<CategoryPageEnum>(CategoryPageEnum.list);
-    const [dataToEditCategory, setDataToEditCategory] = useState<ICategory | null>(null);
+    const [employeeList, setEmployeeList] = useState<IEmployee[]>([]);
+    const [employeePage, setEmployeePage] = useState<EmployeePageEnum>(EmployeePageEnum.list);
+    const [dataToEditEmployee, setDataToEditEmployee] = useState<IEmployee | null>(null);
+
     useEffect(() => {
-        const users = localStorage.getItem("UserList");
-        if (users) {
-            _setUserList(JSON.parse(users));
-        }
+        const loadData = (key: string, setter: (data: any) => void) => {
+            const data = localStorage.getItem(key);
+            if (data) setter(JSON.parse(data));
+        };
 
-        const books = localStorage.getItem("BookList");
-        if (books) {
-            _setBookList(JSON.parse(books));
-        }
-
-        const loans = localStorage.getItem("LoanList");
-        if (loans) {
-            _setLoanList(JSON.parse(loans));
-        }
-
-        const categories = localStorage.getItem("CategoryList");
-        if (categories) {
-            _setCategoryList(JSON.parse(categories));
-        }
-
+        loadData("UserList", _setUserList);
+        loadData("BookList", _setBookList);
+        loadData("LoanList", _setLoanList);
+        loadData("EmployeeList", _setEmployeeList);
     }, []);
 
     //USER
@@ -172,33 +163,33 @@ const Home = () => {
         _setLoanList(updatedLoans);
     };
 
-    //CATEGORY 
-    const _setCategoryList = (list: ICategory[]) => {
-    setCategoryList(list);
-    localStorage.setItem("CategoryList", JSON.stringify(list));
+    //EMPLOYEE 
+    const _setEmployeeList = (list: IEmployee[]) => {
+        setEmployeeList(list);
+        localStorage.setItem("EmployeeList", JSON.stringify(list));
     };
 
-    const addCategory = (data: ICategory) => {
-        _setCategoryList([...categoryList, data]);
-        setCategoryPage(CategoryPageEnum.list);
+    const addEmployee = (data: IEmployee) => {
+        _setEmployeeList([...employeeList, data]);
+        setEmployeePage(EmployeePageEnum.list);
     };
 
-    const deleteCategory = (data: ICategory) => {
-        const updatedList = categoryList.filter(category => category.id !== data.id);
-        _setCategoryList(updatedList);
+    const deleteEmployee = (data: IEmployee) => {
+        const updatedList = employeeList.filter(employee => employee.id !== data.id);
+        _setEmployeeList(updatedList);
     };
 
-    const editCategoryData = (data: ICategory) => {
-        setDataToEditCategory(data);
-        setCategoryPage(CategoryPageEnum.edit);
+    const editEmployeeData = (data: IEmployee) => {
+        setDataToEditEmployee(data);
+        setEmployeePage(EmployeePageEnum.edit);
     };
 
-    const updateCategoryData = (data: ICategory) => {
-        const updatedList = categoryList.map(category => 
-            category.id === data.id ? data : category
+    const updateEmployeeData = (data: IEmployee) => {
+        const updatedList = employeeList.map(employee => 
+            employee.id === data.id ? data : employee
         );
-        _setCategoryList(updatedList);
-        setCategoryPage(CategoryPageEnum.list);
+        _setEmployeeList(updatedList);
+        setEmployeePage(EmployeePageEnum.list);
     };
     return(
     <>
@@ -217,7 +208,7 @@ const Home = () => {
             <button 
                 className={activeTab === 'loans' ? 'active' : ''} onClick={() => setActiveTab('loans')}> Empréstimos </button>
             <button 
-                className={activeTab === 'categories' ? 'active' : ''} onClick={() => setActiveTab('categories')}> Categorias </button>
+                className={activeTab === 'employees' ? 'active' : ''} onClick={() => setActiveTab('employees')}> Funcionários </button>
         </nav>
 
         {/*BOOKS */}
@@ -230,7 +221,8 @@ const Home = () => {
                         onClick={() => setBookPage(BookPageEnum.add)} className="add-button"> Adicionar Livro 
                     </button>
                     <BookList
-                    categories={categoryList}
+                    generosDisponiveis={generosDisponiveis}
+                    employees={employeeList}
                     list={bookList}
                     onDeleteClickHnd={deleteBook}
                     onEdit={editBookData}
@@ -239,9 +231,17 @@ const Home = () => {
                 )}
                 {bookPage === BookPageEnum.add && (
                     <AddBook 
-                        categories={categoryList}
+                        generosDisponiveis={generosDisponiveis}
                         onBackBtnClickHnd={() => setBookPage(BookPageEnum.list)}
                         onSubmitClickHnd={addBook}
+                    />
+                )}
+                 {bookPage === BookPageEnum.edit && dataToEditBook && (
+                    <EditBook
+                        generosDisponiveis={generosDisponiveis}
+                        data={dataToEditBook}
+                        onBackBtnClickHnd={() => setBookPage(BookPageEnum.list)}
+                        onUpdateClickHnd={updateBookData}
                     />
                 )}
             </>
@@ -304,48 +304,46 @@ const Home = () => {
                 )}
                 {loanPage === LoanPageEnum.add && (
                     <AddLoan 
-                        books={bookList.filter(b => b.disponivel)}
-                        users={userList}
-                        onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
-                        onSubmitClickHnd={addLoan}
-                    />
+                            books={bookList.filter(b => b.disponivel)}
+                            users={userList}
+                            onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
+                            onSubmitClickHnd={addLoan} employees={[]}                    />
                 )}
                 {loanPage === LoanPageEnum.edit && dataToEditLoan && (
                     <EditLoan 
-                        data={dataToEditLoan}
-                        onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
-                        onUpdateClickHnd={updateLoanData}
-                    />
+                            data={dataToEditLoan}
+                            onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
+                            onUpdateClickHnd={updateLoanData} books={[]} users={[]} employees={[]}                    />
                 )}
             </>
         )}
 
-        {/*CATEGORIES */}
-        {activeTab === 'categories' && (
+        {/*EMPLOYEES*/}
+        {activeTab === 'employees' && (
             <>
-                {categoryPage === CategoryPageEnum.list && (
+                {employeePage === EmployeePageEnum.list && (
                 <>
                     <button 
-                        onClick={() => setCategoryPage(CategoryPageEnum.add)} className="add-button"> Adicionar Categoria
+                        onClick={() => setEmployeePage(EmployeePageEnum.add)} className="add-button"> Adicionar Funcionário
                     </button>
-                    <CategoryList 
-                        list={categoryList}
-                        onDeleteClickHnd={deleteCategory}
-                        onEdit={editCategoryData}
+                    <EmployeeList 
+                        list={employeeList}
+                        onDeleteClickHnd={deleteEmployee}
+                        onEdit={editEmployeeData}
                     />
                 </>
                 )}
-                {categoryPage === CategoryPageEnum.add && (
-                    <AddCategory
-                        onBackBtnClickHnd={() => setCategoryPage(CategoryPageEnum.list)}
-                        onSubmitClickHnd={addCategory}
+                {employeePage === EmployeePageEnum.add && (
+                    <AddEmployee 
+                        onBackBtnClickHnd={() => setEmployeePage(EmployeePageEnum.list)}
+                        onSubmitClickHnd={addEmployee}
                     />
                 )}
-                {categoryPage === CategoryPageEnum.edit && dataToEditCategory && (
-                    <EditCategory
-                        data={dataToEditCategory}
-                        onBackBtnClickHnd={() => setCategoryPage(CategoryPageEnum.list)}
-                        onUpdateClickHnd={updateCategoryData}
+                {employeePage === EmployeePageEnum.edit && dataToEditEmployee && (
+                    <EditEmployee
+                        data={dataToEditEmployee}
+                        onBackBtnClickHnd={() => setEmployeePage(EmployeePageEnum.list)}
+                        onUpdateClickHnd={updateEmployeeData}
                     />
                 )}
             </>

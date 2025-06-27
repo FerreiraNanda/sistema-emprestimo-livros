@@ -1,38 +1,52 @@
-// src/component/loan/LoanModal.tsx
 import { ILoan } from "./Loan.type";
 import "./LoanModal.style.css";
 
 type Props = {
-    onClose: () => void;
     data: ILoan;
+    onClose: () => void;
 };
 
-const LoanModal = ({ onClose, data }: Props) => {
+const LoanModal = ({ data, onClose }: Props) => {
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleDateString('pt-BR');
+    };
+
     return (
-        <div id="loanModal" className="modal">
+        <div className="modal-overlay">
             <div className="modal-content">
-                <span className="close" onClick={onClose}>&times;</span>
-                <h3>Detalhes do Empréstimo</h3>
-                <div>
-                    <label>Livro: {data.book.titulo}</label>
+                <button className="close-btn" onClick={onClose}>×</button>
+                <h2>Detalhes do Empréstimo</h2>
+                
+                <div className="detail-row">
+                    <span className="detail-label">Livro:</span>
+                    <span>{data.book.titulo} - {data.book.autor}</span>
                 </div>
-                <div>
-                    <label>Autor: {data.book.autor}</label>
+                
+                <div className="detail-row">
+                    <span className="detail-label">Usuário:</span>
+                    <span>{data.user.name}</span>
                 </div>
-                <div>
-                    <label>Usuário: {data.user.nome}</label>
+                
+                <div className="detail-row">
+                    <span className="detail-label">Funcionário:</span>
+                    <span>{data.employee.name} ({data.employee.position})</span>
                 </div>
-                <div>
-                    <label>Email: {data.user.email}</label>
+                
+                <div className="detail-row">
+                    <span className="detail-label">Data Empréstimo:</span>
+                    <span>{formatDate(data.loanDate)}</span>
                 </div>
-                <div>
-                    <label>Data do Empréstimo: {new Date(data.loanDate).toLocaleDateString()}</label>
+                
+                <div className="detail-row">
+                    <span className="detail-label">Data Devolução:</span>
+                    <span>{formatDate(data.returnDate)}</span>
                 </div>
-                <div>
-                    <label>Data de Devolução: {new Date(data.returnDate).toLocaleDateString()}</label>
-                </div>
-                <div>
-                    <label>Status: {data.returned ? "Devolvido" : new Date(data.returnDate) < new Date() ? "Atrasado" : "Em andamento"}</label>
+                
+                <div className="detail-row">
+                    <span className="detail-label">Status:</span>
+                    <span className={`status ${data.returned ? 'returned' : 'pending'}`}>
+                        {data.returned ? 'Devolvido' : 'Pendente'}
+                    </span>
                 </div>
             </div>
         </div>

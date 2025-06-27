@@ -3,8 +3,9 @@ export interface IBook {
     titulo: string;
     autor: string;
     isbn: string;
-    categoryId: string;
+    genero: string;
     disponivel: boolean;
+    registeredBy?: string;
 }
 
 export enum BookPageEnum {

@@ -1,8 +1,8 @@
-// src/component/loan/LoanList.tsx
 import { useState } from "react";
 import { ILoan } from "./Loan.type";
 import "./LoanList.style.css";
 import LoanModal from "./LoanModal";
+
 type Props = {
     list: ILoan[];
     onDeleteClickHnd: (data: ILoan) => void;
@@ -21,12 +21,19 @@ const LoanList = ({ list, onDeleteClickHnd, onEdit, onReturn }: Props) => {
 
     const onCloseModal = () => setShowModal(false);
 
+    const formatDate = (dateString: string) => {
+        return new Date(dateString).toLocaleDateString('pt-BR');
+    };
+
+    const getStatus = (loan: ILoan) => {
+        if (loan.returned) return "✅ Devolvido";
+        if (new Date(loan.returnDate) < new Date()) return "⚠️ Atrasado";
+        return "⏳ Em andamento";
+    };
+
     return (
-        <div>
-            <article>
-                <h3 className="list-header">Lista de Empréstimos</h3>
-            </article>
-            <table>
+        <div className="table-container">
+            <table className="compact-table">
                 <thead>
                     <tr>
                         <th>Livro</th>
@@ -39,30 +46,34 @@ const LoanList = ({ list, onDeleteClickHnd, onEdit, onReturn }: Props) => {
                 </thead>
                 <tbody>
                     {list.map((loan) => (
-                        <tr key={loan.id} className={loan.returned ? "returned" : loan.returnDate < new Date().toISOString() ? "overdue" : ""}>
-                            <td>{loan.book.titulo}</td>
-                            <td>{loan.user.nome}</td>
-                            <td>{new Date(loan.loanDate).toLocaleDateString()}</td>
-                            <td>{new Date(loan.returnDate).toLocaleDateString()}</td>
-                            <td>{loan.returned ? "Devolvido" : new Date(loan.returnDate) < new Date() ? "Atrasado" : "Em andamento"}</td>
+                        <tr key={loan.id}>
+                            <td>{loan.book?.titulo || "-"}</td>
+                            <td>{loan.user?.name || "-"}</td>
+                            <td>{formatDate(loan.loanDate)}</td>
+                            <td>{formatDate(loan.returnDate)}</td>
+                            <td>{getStatus(loan)}</td>
                             <td>
-                                <div>
-                                    <input type="button" value="Visualizar" onClick={() => viewLoan(loan)} />
+                                <div className="table-actions">
+                                    <button onClick={() => viewLoan(loan)} title="Visualizar">👁️</button>
                                     {!loan.returned && (
                                         <>
-                                            <input type="button" value="Editar" onClick={() => onEdit(loan)} />
-                                            <input type="button" value="Devolver" onClick={() => onReturn(loan)} />
+                                            <button onClick={() => onEdit(loan)} title="Editar">✏️</button>
+                                            <button onClick={() => onReturn(loan)} title="Devolver">🔄</button>
                                         </>
                                     )}
-                                    <input type="button" value="Excluir" onClick={() => onDeleteClickHnd(loan)} />
+                                    <button onClick={() => onDeleteClickHnd(loan)} title="Excluir">🗑️</button>
                                 </div>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
             {showModal && dataToShow && (
-                <LoanModal onClose={onCloseModal} data={dataToShow} />
+                <LoanModal 
+                    data={dataToShow} 
+                    onClose={onCloseModal}
+                />
             )}
         </div>
     );

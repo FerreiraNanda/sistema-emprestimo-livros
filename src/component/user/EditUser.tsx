@@ -12,7 +12,7 @@ type Props = {
 const EditUser = (props: Props) => {
     const { data, onBackBtnClickHnd, onUpdateClickHnd } = props;
 
-    const [nome, setNome] = useState(data.nome);
+    const [name, setNome] = useState(data.name);
     const [email, setEmail] = useState(data.email);
     const [telefone, setTelefone] = useState(data.telefone || "");
 
@@ -21,7 +21,7 @@ const EditUser = (props: Props) => {
 
         const updatedData: IUser = {
             id: data.id,
-            nome,
+            name,
             email,
             telefone
         };
@@ -40,7 +40,7 @@ const EditUser = (props: Props) => {
                     <label>Nome: </label>
                     <input 
                         type="text" 
-                        value={nome} 
+                        value={name} 
                         onChange={(e) => setNome(e.target.value)} 
                         required
                     />

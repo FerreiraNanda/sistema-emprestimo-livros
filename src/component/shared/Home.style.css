@@ -1,88 +1,47 @@
-.article-header{
-    background-color: darkblue;
-    color: white;
-    border: 3px solid transparent;
-    text-align: center;
+.article-header {
+  background-color: var(--color-dark);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.section-content{
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 15px;
-}
-
-.add-employee-btn{
-    float: right;
-    margin-bottom: 5px;
+.article-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 .tab-navigation {
-    display: flex;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ccc;
+  display: flex;
+  background-color: var(--color-primary);
+  padding: 0.5rem;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .tab-navigation button {
-    padding: 10px 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 5px;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background-color: transparent;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-navigation button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .tab-navigation button.active {
-    border-bottom: 2px solid darkblue;
-    color: darkblue;
-    font-weight: bold;
-}
-
-.tab-content {
-    padding: 20px;
-    border: 1px solid #eee;
-    border-radius: 5px;
-}
-
-.tab-navigation {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-.tab-navigation button {
-    padding: 8px 16px;
-    background: #f0f0f0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.tab-navigation button.active {
-    background: #007bff;
-    color: white;
+  background-color: var(--color-dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .warning {
-    color: #dc3545;
-    background-color: #f8d7da;
-    padding: 8px;
-    border-radius: 4px;
-    margin: 10px 0;
-}
-
-.add-button {
-    background-color: #28a745;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    margin-bottom: 15px;
-    cursor: pointer;
-}
-
-.add-button:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
+  color: var(--color-accent);
+  text-align: center;
+  margin: 1rem 0;
+  font-weight: 500;
 }

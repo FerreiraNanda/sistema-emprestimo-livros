@@ -1,26 +1,28 @@
-// src/component/category/EditCategory.tsx
+// src/component/employee/EditEmployee.tsx
 import { useState } from "react";
-import { ICategory } from "./Category.type";
-import "./CategoryForm.style.css";
+import { IEmployee } from "./Employee.type";
+import "./EmployeeForm.style.css";
 
 type Props = {
-    data: ICategory;
+    data: IEmployee;
     onBackBtnClickHnd: () => void;
-    onUpdateClickHnd: (data: ICategory) => void;
+    onUpdateClickHnd: (data: IEmployee) => void;
 };
 
-const EditCategory = (props: Props) => {
+const EditEmployee = (props: Props) => {
     const { data, onBackBtnClickHnd, onUpdateClickHnd } = props;
 
     const [name, setName] = useState(data.name);
-    const [description, setDescription] = useState(data.description);
+    const [registrationNumber, setRegistrationNumber] = useState(data.registrationNumber);
+    const [position, setPosition] = useState(data.position);
 
     const onSubmitBtnClickHnd = (e: React.FormEvent) => {
         e.preventDefault();
-        const updatedData: ICategory = {
+        const updatedData: IEmployee = {
             id: data.id,
             name: name,
-            description: description
+            registrationNumber: registrationNumber,
+            position: position
         };
         onUpdateClickHnd(updatedData);
         onBackBtnClickHnd();
@@ -29,7 +31,7 @@ const EditCategory = (props: Props) => {
     return (
         <div className="form-container">
             <div>
-                <h3>Editar Categoria</h3>
+                <h3>Editar Funcionário</h3>
             </div>
             <form onSubmit={onSubmitBtnClickHnd}>
                 <div>
@@ -42,11 +44,21 @@ const EditCategory = (props: Props) => {
                     />
                 </div>
                 <div>
-                    <label>Descrição: </label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        rows={3}
+                    <label>Matrícula: </label>
+                    <input 
+                        type="text" 
+                        value={registrationNumber}
+                        onChange={(e) => setRegistrationNumber(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Cargo: </label>
+                    <input 
+                        type="text" 
+                        value={position}
+                        onChange={(e) => setPosition(e.target.value)}
+                        required
                     />
                 </div>
                 <div>
@@ -58,4 +70,4 @@ const EditCategory = (props: Props) => {
     );
 };
 
-export default EditCategory;
+export default EditEmployee;

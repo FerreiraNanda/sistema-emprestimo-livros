@@ -1,25 +1,26 @@
-// src/component/category/AddCategory.tsx
 import { useState } from "react";
-import "./CategoryForm.style.css";
-import { ICategory } from "./Category.type";
+import "./EmployeeForm.style.css";
+import { IEmployee } from "./Employee.type";
 
 type Props = {
     onBackBtnClickHnd: () => void;
-    onSubmitClickHnd: (data: ICategory) => void;
+    onSubmitClickHnd: (data: IEmployee) => void;
 };
 
-const AddCategory = (props: Props) => {
+const AddEmployee = (props: Props) => {
     const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
+    const [registrationNumber, setRegistrationNumber] = useState("");
+    const [position, setPosition] = useState("");
 
     const { onBackBtnClickHnd, onSubmitClickHnd } = props;
 
     const onSubmitBtnClickHnd = (e: React.FormEvent) => {
         e.preventDefault();
-        const data: ICategory = {
+        const data: IEmployee = {
             id: new Date().toJSON().toString(),
             name: name,
-            description: description
+            registrationNumber: registrationNumber,
+            position: position
         };
         onSubmitClickHnd(data);
         onBackBtnClickHnd();
@@ -28,7 +29,7 @@ const AddCategory = (props: Props) => {
     return (
         <div className="form-container">
             <div>
-                <h3>Adicionar Categoria</h3>
+                <h3>Adicionar Funcionário</h3>
             </div>
             <form onSubmit={onSubmitBtnClickHnd}>
                 <div>
@@ -41,11 +42,21 @@ const AddCategory = (props: Props) => {
                     />
                 </div>
                 <div>
-                    <label>Descrição: </label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        rows={3}
+                    <label>Matrícula: </label>
+                    <input 
+                        type="text" 
+                        value={registrationNumber}
+                        onChange={(e) => setRegistrationNumber(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Cargo: </label>
+                    <input 
+                        type="text" 
+                        value={position}
+                        onChange={(e) => setPosition(e.target.value)}
+                        required
                     />
                 </div>
                 <div>
@@ -57,4 +68,4 @@ const AddCategory = (props: Props) => {
     );
 };
 
-export default AddCategory;
+export default AddEmployee;

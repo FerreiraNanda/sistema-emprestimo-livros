@@ -4,55 +4,71 @@ import "./LoanForm.style.css";
 import { ILoan } from "./Loan.type";
 import { IBook } from "../book/Book.type";
 import { IUser } from "../user/User.type";
+import { IEmployee } from "../employee/Employee.type";
 
 type Props = {
     books: IBook[];
     users: IUser[];
+    employees: IEmployee[];
     onBackBtnClickHnd: () => void;
     onSubmitClickHnd: (data: ILoan) => void;
 };
 
-const AddLoan = ({ books, users, onBackBtnClickHnd, onSubmitClickHnd }: Props) => {
-    const [selectedBookId, setSelectedBookId] = useState("");
-    const [selectedUserId, setSelectedUserId] = useState("");
-    const [loanDate, setLoanDate] = useState("");
-    const [returnDate, setReturnDate] = useState("");
+const AddLoan = ({ books, users, employees, onBackBtnClickHnd, onSubmitClickHnd }: Props) => {
+    const [formData, setFormData] = useState<Omit<ILoan, 'id' | 'returned'>>({
+        book: {} as IBook,
+        user: {} as IUser,
+        employee: {} as IEmployee,
+        loanDate: new Date().toISOString().split('T')[0],
+        returnDate: ''
+    });
 
-    const onSubmitBtnClickHnd = (e: React.FormEvent) => {
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+        const { name, value } = e.target;
+        
+        if (name === 'bookId') {
+            const selectedBook = books.find(b => b.id === value);
+            setFormData(prev => ({ ...prev, book: selectedBook || {} as IBook }));
+        } 
+        else if (name === 'userId') {
+            const selectedUser = users.find(u => u.id === value);
+            setFormData(prev => ({ ...prev, user: selectedUser || {} as IUser }));
+        }
+        else if (name === 'employeeId') {
+            const selectedEmployee = employees.find(e => e.id === value);
+            setFormData(prev => ({ ...prev, employee: selectedEmployee || {} as IEmployee }));
+        }
+        else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
+    };
+
+    const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const selectedBook = books.find(book => book.id === selectedBookId);
-        const selectedUser = users.find(user => user.id === selectedUserId);
-
-        if (!selectedBook || !selectedUser) {
-            alert("Por favor, selecione um livro e um usuário válidos");
+        
+        if (!formData.book.id || !formData.user.id || !formData.employee.id || !formData.returnDate) {
+            alert("Preencha todos os campos obrigatórios!");
             return;
         }
 
-        const data: ILoan = {
-            id: new Date().toJSON().toString(),
-            book: selectedBook,
-            user: selectedUser,
-            loanDate,
-            returnDate,
+        const newLoan: ILoan = {
+            id: Date.now().toString(),
+            ...formData,
             returned: false
         };
 
-        onSubmitClickHnd(data);
+        onSubmitClickHnd(newLoan);
         onBackBtnClickHnd();
     };
-
     return (
         <div className="form-container">
-            <div>
-                <h3>Registrar Empréstimo</h3>
-            </div>
-            <form onSubmit={onSubmitBtnClickHnd}>
-                <div>
-                    <label>Livro: </label>
+            <h2>Registrar Empréstimo</h2>
+            <form onSubmit={onSubmit}>
+                <div className="form-group">
+                    <label>Livro:</label>
                     <select
-                        value={selectedBookId}
-                        onChange={(e) => setSelectedBookId(e.target.value)}
+                        name="bookId"
+                        onChange={handleChange}
                         required
                     >
                         <option value="">Selecione um livro</option>
@@ -63,42 +79,65 @@ const AddLoan = ({ books, users, onBackBtnClickHnd, onSubmitClickHnd }: Props) =
                         ))}
                     </select>
                 </div>
-                <div>
-                    <label>Usuário: </label>
+
+                <div className="form-group">
+                    <label>Usuário:</label>
                     <select
-                        value={selectedUserId}
-                        onChange={(e) => setSelectedUserId(e.target.value)}
+                        name="userId"
+                        onChange={handleChange}
                         required
                     >
                         <option value="">Selecione um usuário</option>
                         {users.map(user => (
                             <option key={user.id} value={user.id}>
-                                {user.nome} - {user.email}
+                                {user.name}
                             </option>
                         ))}
                     </select>
                 </div>
-                <div>
-                    <label>Data do Empréstimo: </label>
+
+                <div className="form-group">
+                    <label>Funcionário:</label>
+                    <select
+                        name="employeeId"
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Selecione um funcionário</option>
+                        {employees.map(employee => (
+                            <option key={employee.id} value={employee.id}>
+                                {employee.name} ({employee.position})
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label>Data de Empréstimo:</label>
                     <input
                         type="date"
-                        value={loanDate}
-                        onChange={(e) => setLoanDate(e.target.value)}
+                        name="loanDate"
+                        value={formData.loanDate}
+                        onChange={handleChange}
                         required
                     />
                 </div>
-                <div>
-                    <label>Data de Devolução: </label>
+
+                <div className="form-group">
+                    <label>Data de Devolução:</label>
                     <input
                         type="date"
-                        value={returnDate}
-                        onChange={(e) => setReturnDate(e.target.value)}
+                        name="returnDate"
+                        value={formData.returnDate}
+                        onChange={handleChange}
                         required
+                        min={formData.loanDate}
                     />
                 </div>
-                <div>
-                    <input type="button" value="Voltar" onClick={onBackBtnClickHnd} />
-                    <input type="submit" value="Registrar Empréstimo" />
+
+                <div className="form-actions">
+                    <button type="button" onClick={onBackBtnClickHnd}>Cancelar</button>
+                    <button type="submit">Registrar</button>
                 </div>
             </form>
         </div>

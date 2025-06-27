@@ -1,17 +1,17 @@
-// src/component/book/BookList.tsx
 import { useState } from "react";
 import { IBook } from "./Book.type";
 import "./BookList.style.css";
 import BookModal from "./BookModal";
 
 type Props = {
-    categories: {id: string, name: string}[];
+    generosDisponiveis: string[];
+    employees: {id: string, name: string}[];
     list: IBook[];
     onDeleteClickHnd: (data: IBook) => void;
     onEdit: (data: IBook) => void;
 };
 
-const BookList = ({ categories, list, onDeleteClickHnd, onEdit }: Props) => {
+const BookList = ({ list, onDeleteClickHnd, onEdit }: Props) => {
     const [showModal, setShowModal] = useState(false);
     const [dataToShow, setDataToShow] = useState<IBook | null>(null);
 
@@ -22,21 +22,14 @@ const BookList = ({ categories, list, onDeleteClickHnd, onEdit }: Props) => {
 
     const onCloseModal = () => setShowModal(false);
 
-    const getCategoryName = (id: string) => {
-        return categories.find(c => c.id === id)?.name || "Sem categoria";
-    };
-
     return (
-        <div>
-            <article>
-                <h3 className="list-header">Lista de Livros</h3>
-            </article>
-            <table>
+        <div className="table-container">
+            <table className="compact-table">
                 <thead>
                     <tr>
                         <th>Título</th>
                         <th>Autor</th>
-                        <th>Categoria</th>
+                        <th>Gênero</th>
                         <th>ISBN</th>
                         <th>Disponível</th>
                         <th>Ações</th>
@@ -47,14 +40,32 @@ const BookList = ({ categories, list, onDeleteClickHnd, onEdit }: Props) => {
                         <tr key={book.id}>
                             <td>{book.titulo}</td>
                             <td>{book.autor}</td>
-                            <td>{getCategoryName(book.categoryId)}</td>
+                            <td>{book.genero}</td>
                             <td>{book.isbn}</td>
-                            <td>{book.disponivel ? "Sim" : "Não"}</td>
+                            <td>{book.disponivel ? "✔️" : "❌"}</td>
                             <td>
-                                <div>
-                                    <button onClick={() => viewBook(book)}>Visualizar</button>
-                                    <button onClick={() => onEdit(book)}>Editar</button>
-                                    <button onClick={() => onDeleteClickHnd(book)}>Excluir</button>
+                                <div className="table-actions">
+                                    <button 
+                                        className="action-btn view-btn"
+                                        onClick={() => viewBook(book)}
+                                        title="Visualizar"
+                                    >
+                                        👁️
+                                    </button>
+                                    <button 
+                                        className="action-btn edit-btn"
+                                        onClick={() => onEdit(book)}
+                                        title="Editar"
+                                    >
+                                        ✏️
+                                    </button>
+                                    <button 
+                                        className="action-btn delete-btn"
+                                        onClick={() => onDeleteClickHnd(book)}
+                                        title="Excluir"
+                                    >
+                                        🗑️
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -64,7 +75,6 @@ const BookList = ({ categories, list, onDeleteClickHnd, onEdit }: Props) => {
             
             {showModal && dataToShow && (
                 <BookModal 
-                    categories={categories}
                     data={dataToShow}
                     onClose={onCloseModal}
                 />

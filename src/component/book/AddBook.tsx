@@ -1,102 +1,103 @@
-// src/component/book/AddBook.tsx
 import { useState } from "react";
-import "./BookForm.style.css";
 import { IBook } from "./Book.type";
+import "./BookForm.style.css";
 
 type Props = {
-  categories: {id: string, name: string}[];
-  onBackBtnClickHnd: () => void;
-  onSubmitClickHnd: (data: IBook) => void;
+    generosDisponiveis: string[];
+    onBackBtnClickHnd: () => void;
+    onSubmitClickHnd: (data: IBook) => void;
 };
 
-const AddBook = (props: Props) => {
-  const [titulo, setTitulo] = useState("");
-  const [autor, setAutor] = useState("");
-  const [isbn, setIsbn] = useState("");
-  const [categoryId, setCategoryId] = useState("");
-  
-  const { categories, onBackBtnClickHnd, onSubmitClickHnd } = props;
+const AddBook = ({ generosDisponiveis, onBackBtnClickHnd, onSubmitClickHnd }: Props) => {
+    const [formData, setFormData] = useState<Omit<IBook, 'id' | 'disponivel' | 'registeredBy'>>({
+        titulo: '',
+        autor: '',
+        isbn: '',
+        genero: ''
+    });
 
-  const onSubmitBtnClickHnd = (e: React.FormEvent) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        if (!categoryId) {
-            alert("Por favor, selecione uma categoria");
+        if (!formData.titulo || !formData.autor || !formData.isbn || !formData.genero) {
+            alert("Preencha todos os campos!");
             return;
         }
-
-        const data: IBook = {
-            id: new Date().toJSON().toString(),
-            titulo,
-            autor,
-            isbn,
-            categoryId, // Incluindo a categoria
-            disponivel: true
+        
+        const newBook: IBook = {
+            id: Date.now().toString(),
+            ...formData,
+            disponivel: true,
+            registeredBy: "current-user-id" // Substituir por ID real na implementação
         };
-
-        onSubmitClickHnd(data);
+        
+        onSubmitClickHnd(newBook);
         onBackBtnClickHnd();
     };
 
-  return (
-    <div className="form-container">
-      <div>
-        <h3>Adicionar Livro</h3>
-      </div>
-      <form onSubmit={onSubmitBtnClickHnd}>
-        <div>
-          <label>Título: </label>
-          <input 
-            type="text" 
-            value={titulo} 
-            onChange={(e) => setTitulo(e.target.value)} 
-            required
-          />
+    return (
+        <div className="form-container">
+            <h2>Adicionar Novo Livro</h2>
+            <form onSubmit={onSubmit}>
+                <div className="form-group">
+                    <label>Título:</label>
+                    <input 
+                        type="text" 
+                        name="titulo"
+                        value={formData.titulo}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                
+                <div className="form-group">
+                    <label>Autor:</label>
+                    <input 
+                        type="text" 
+                        name="autor"
+                        value={formData.autor}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                
+                <div className="form-group">
+                    <label>ISBN:</label>
+                    <input 
+                        type="text" 
+                        name="isbn"
+                        value={formData.isbn}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                
+                <div className="form-group">
+                    <label>Gênero:</label>
+                    <select
+                        name="genero"
+                        value={formData.genero}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Selecione...</option>
+                        {generosDisponiveis.map(genero => (
+                            <option key={genero} value={genero}>{genero}</option>
+                        ))}
+                    </select>
+                </div>
+                
+                <div className="button-group">
+                    <button type="button" onClick={onBackBtnClickHnd}>Cancelar</button>
+                    <button type="submit">Salvar</button>
+                </div>
+            </form>
         </div>
-        <div>
-          <label>Autor: </label>
-          <input 
-            type="text" 
-            value={autor} 
-            onChange={(e) => setAutor(e.target.value)} 
-            required
-          />
-        </div>
-        <div>
-          <label>ISBN: </label>
-          <input 
-            type="text" 
-            value={isbn} 
-            onChange={(e) => setIsbn(e.target.value)} 
-            required
-          />
-        </div>
-        <div>
-          <input type="button" value="Voltar" onClick={onBackBtnClickHnd} />
-          <input type="submit" value="Adicionar Livro" />
-        </div>
-        <div>
-            <label>Categoria: </label>
-                <select
-                  value={categoryId}
-                  onChange={(e) => setCategoryId(e.target.value)}
-                  required
-                  >
-                  <option value="">Selecione uma categoria</option>
-                  {categories.map(category => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                  ))}
-                </select>
-            </div>
-              <div>
-                <input type="button" value="Voltar" onClick={onBackBtnClickHnd} />
-                <input type="submit" value="Adicionar Livro" />
-              </div>
-      </form>
-    </div>
-  );
+    );
 };
 
 export default AddBook;

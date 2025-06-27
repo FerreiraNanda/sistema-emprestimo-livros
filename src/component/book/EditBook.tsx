@@ -1,88 +1,118 @@
-// src/component/book/EditBook.tsx
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { IBook } from "./Book.type";
 import "./BookForm.style.css";
 
 type Props = {
-    categories: {id: string, name: string}[];
+    generosDisponiveis: string[];
     data: IBook;
     onBackBtnClickHnd: () => void;
     onUpdateClickHnd: (data: IBook) => void;
 };
 
-const EditBook = (props: Props) => {
-    const { categories, data, onBackBtnClickHnd, onUpdateClickHnd } = props;
+const EditBook = ({ generosDisponiveis, data, onBackBtnClickHnd, onUpdateClickHnd }: Props) => {
+    const [formData, setFormData] = useState<IBook>(data);
 
-    const [titulo, setTitulo] = useState(data.titulo);
-    const [autor, setAutor] = useState(data.autor);
-    const [isbn, setIsbn] = useState(data.isbn);
-    const [categoryId, setCategoryId] = useState(data.categoryId);
+    useEffect(() => {
+        setFormData(data);
+    }, [data]);
 
-    const onSubmitBtnClickHnd = (e: React.FormEvent) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const updatedData: IBook = {
-            id: data.id,
-            titulo,
-            autor,
-            isbn,
-            categoryId,
-            disponivel: data.disponivel
-        };
-
-        onUpdateClickHnd(updatedData);
+        onUpdateClickHnd(formData);
         onBackBtnClickHnd();
     };
 
     return (
-        <div className="form-container">
-            <div>
-                <h3>Editar Livro</h3>
+<div className="form-container">
+            <div className="form-header">
+                <h2>Editar Livro</h2>
             </div>
-            <form onSubmit={onSubmitBtnClickHnd}>
-                <div>
-                    <label>Título: </label>
+            
+            <form onSubmit={onSubmit}>
+                <div className="form-group">
+                    <label>Título:</label>
                     <input 
                         type="text" 
-                        value={titulo} 
-                        onChange={(e) => setTitulo(e.target.value)} 
+                        name="titulo"
+                        value={formData.titulo}
+                        onChange={handleChange}
                         required
+                        className="form-input"
                     />
                 </div>
-                <div>
-                    <label>Autor: </label>
+                
+                <div className="form-group">
+                    <label>Autor:</label>
                     <input 
                         type="text" 
-                        value={autor} 
-                        onChange={(e) => setAutor(e.target.value)} 
+                        name="autor"
+                        value={formData.autor}
+                        onChange={handleChange}
                         required
+                        className="form-input"
                     />
                 </div>
-                <div>
-                    <label>ISBN: </label>
+                
+                <div className="form-group">
+                    <label>ISBN:</label>
                     <input 
                         type="text" 
-                        value={isbn} 
-                        onChange={(e) => setIsbn(e.target.value)} 
+                        name="isbn"
+                        value={formData.isbn}
+                        onChange={handleChange}
                         required
+                        className="form-input"
                     />
                 </div>
-                <div>
-                    <label>Categoria: </label>
+                
+                <div className="form-group">
+                    <label>Gênero:</label>
                     <select
-                        value={categoryId}
-                        onChange={(e) => setCategoryId(e.target.value)}
-                        required>
-                        {categories.map(category => (
-                            <option key={category.id} value={category.id}>
-                                {category.name}
+                        name="genero"
+                        value={formData.genero}
+                        onChange={handleChange}
+                        required
+                        className="form-select"
+                    >
+                        <option value="">Selecione um gênero</option>
+                        {generosDisponiveis.map((genero) => (
+                            <option key={genero} value={genero}>
+                                {genero}
                             </option>
                         ))}
                     </select>
                 </div>
-                <div>
-                    <input type="button" value="Voltar" onClick={onBackBtnClickHnd} />
-                    <input type="submit" value="Atualizar Livro" />
+                
+                <div className="form-group">
+                    <label>Disponibilidade:</label>
+                    <input 
+                        type="text" 
+                        value={formData.disponivel ? "Disponível" : "Emprestado"} 
+                        readOnly
+                        className="form-input readonly"
+                    />
+                </div>
+                
+                <div className="form-actions">
+                    <button 
+                        type="button" 
+                        onClick={onBackBtnClickHnd}
+                        className="button secondary"
+                    >
+                        Voltar
+                    </button>
+                    <button 
+                        type="submit" 
+                        className="button primary"
+                    >
+                        Atualizar Livro
+                    </button>
                 </div>
             </form>
         </div>

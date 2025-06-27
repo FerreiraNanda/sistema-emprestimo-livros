@@ -39,7 +39,7 @@ const UserList = (props: Props) => {
                     {list.map((user) => {
                         return (
                             <tr key={user.id}>
-                                <td>{user.nome}</td>
+                                <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.telefone || "-"}</td>
                                 <td>

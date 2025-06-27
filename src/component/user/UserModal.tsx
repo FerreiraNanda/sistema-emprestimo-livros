@@ -16,7 +16,7 @@ const UserModal = (props: Props) => {
                 <span className="close" onClick={onClose}>&times;</span>
                 <h3>Detalhes do Usuário</h3>
                 <div>
-                    <label>Nome: {data.nome}</label>
+                    <label>Nome: {data.name}</label>
                 </div>
                 <div>
                     <label>Email: {data.email}</label>

@@ -1,64 +1,135 @@
-// src/component/loan/EditLoan.tsx
 import { useState } from "react";
 import { ILoan } from "./Loan.type";
+import { IBook } from "../book/Book.type";
+import { IUser } from "../user/User.type";
+import { IEmployee } from "../employee/Employee.type";
 import "./LoanForm.style.css";
 
 type Props = {
     data: ILoan;
+    books: IBook[];
+    users: IUser[];
+    employees: IEmployee[];
     onBackBtnClickHnd: () => void;
     onUpdateClickHnd: (data: ILoan) => void;
 };
 
-const EditLoan = ({ data, onBackBtnClickHnd, onUpdateClickHnd }: Props) => {
-    const [returned, setReturned] = useState(data.returned);
+const EditLoan = ({ data, books, users, employees, onBackBtnClickHnd, onUpdateClickHnd }: Props) => {
+    const [formData, setFormData] = useState<ILoan>(data);
 
-    const onSubmitBtnClickHnd = (e: React.FormEvent) => {
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+        const { name, value } = e.target;
+        
+        if (name === 'bookId') {
+            const selectedBook = books.find(b => b.id === value);
+            setFormData(prev => ({ ...prev, book: selectedBook || data.book }));
+        } 
+        else if (name === 'userId') {
+            const selectedUser = users.find(u => u.id === value);
+            setFormData(prev => ({ ...prev, user: selectedUser || data.user }));
+        }
+        else if (name === 'employeeId') {
+            const selectedEmployee = employees.find(e => e.id === value);
+            setFormData(prev => ({ ...prev, employee: selectedEmployee || data.employee }));
+        }
+        else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
+    };
+
+    const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const updatedData: ILoan = {
-            ...data,
-            returned
-        };
-
-        onUpdateClickHnd(updatedData);
+        onUpdateClickHnd(formData);
         onBackBtnClickHnd();
     };
 
     return (
         <div className="form-container">
-            <div>
-                <h3>Editar Empréstimo</h3>
-            </div>
-            <form onSubmit={onSubmitBtnClickHnd}>
-                <div>
-                    <label>Livro: </label>
-                    <span>{data.book.titulo}</span>
+            <h2>Editar Empréstimo</h2>
+            <form onSubmit={onSubmit}>
+                <div className="form-group">
+                    <label>Livro:</label>
+                    <select
+                        name="bookId"
+                        value={formData.book.id}
+                        onChange={handleChange}
+                        required
+                    >
+                        {books.map(book => (
+                            <option key={book.id} value={book.id}>
+                                {book.titulo} - {book.autor}
+                            </option>
+                        ))}
+                    </select>
                 </div>
-                <div>
-                    <label>Usuário: </label>
-                    <span>{data.user.nome}</span>
+
+                <div className="form-group">
+                    <label>Usuário:</label>
+                    <select
+                        name="userId"
+                        value={formData.user.id}
+                        onChange={handleChange}
+                        required
+                    >
+                        {users.map(user => (
+                            <option key={user.id} value={user.id}>
+                                {user.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
-                <div>
-                    <label>Data do Empréstimo: </label>
-                    <span>{new Date(data.loanDate).toLocaleDateString()}</span>
+
+                <div className="form-group">
+                    <label>Funcionário:</label>
+                    <select
+                        name="employeeId"
+                        value={formData.employee.id}
+                        onChange={handleChange}
+                        required
+                    >
+                        {employees.map(employee => (
+                            <option key={employee.id} value={employee.id}>
+                                {employee.name} ({employee.position})
+                            </option>
+                        ))}
+                    </select>
                 </div>
-                <div>
-                    <label>Data de Devolução: </label>
-                    <span>{new Date(data.returnDate).toLocaleDateString()}</span>
+
+                <div className="form-group">
+                    <label>Data de Empréstimo:</label>
+                    <input
+                        type="date"
+                        name="loanDate"
+                        value={formData.loanDate.split('T')[0]}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
-                <div>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={returned}
-                            onChange={(e) => setReturned(e.target.checked)}
-                        />
-                        Devolvido
-                    </label>
+
+                <div className="form-group">
+                    <label>Data de Devolução:</label>
+                    <input
+                        type="date"
+                        name="returnDate"
+                        value={formData.returnDate.split('T')[0]}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
-                <div>
-                    <input type="button" value="Voltar" onClick={onBackBtnClickHnd} />
-                    <input type="submit" value="Atualizar" />
+
+                <div className="form-group">
+                    <label>Status:</label>
+                    <input
+                        type="text"
+                        value={formData.returned ? "Devolvido" : "Pendente"}
+                        readOnly
+                        className="readonly"
+                    />
+                </div>
+
+                <div className="form-actions">
+                    <button type="button" onClick={onBackBtnClickHnd}>Cancelar</button>
+                    <button type="submit">Atualizar</button>
                 </div>
             </form>
         </div>
