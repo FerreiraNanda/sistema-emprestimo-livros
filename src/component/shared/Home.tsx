@@ -304,16 +304,17 @@ const Home = () => {
                 )}
                 {loanPage === LoanPageEnum.add && (
                     <AddLoan 
-                            books={bookList.filter(b => b.disponivel)}
-                            users={userList}
-                            onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
-                            onSubmitClickHnd={addLoan} employees={[]}                    />
+                        books={bookList.filter(b => b.disponivel)}
+                        users={userList}
+                        employees={employeeList}
+                        onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
+                        onSubmitClickHnd={addLoan}/>
                 )}
                 {loanPage === LoanPageEnum.edit && dataToEditLoan && (
                     <EditLoan 
                             data={dataToEditLoan}
                             onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
-                            onUpdateClickHnd={updateLoanData} books={[]} users={[]} employees={[]}                    />
+                            onUpdateClickHnd={updateLoanData} books={[]} users={[]} employees={[]}/>
                 )}
             </>
         )}

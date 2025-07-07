@@ -1,5 +1,5 @@
 import { IBook } from "./Book.type";
-import "./BookModal.style.css";
+import "../styles/shared.css";
 
 type Props = {
     data: IBook;

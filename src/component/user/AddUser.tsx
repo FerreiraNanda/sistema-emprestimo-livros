@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IUser } from "./User.type";
-import "./UserForm.style.css";
+import "../styles/shared.css";
 
 type Props = {
     onBackBtnClickHnd: () => void;
@@ -17,7 +17,7 @@ const AddUser = (props: Props) => {
     const onSubmitBtnClickHnd = (e: React.FormEvent) => {
         e.preventDefault();
         const data: IUser = {
-            id: new Date().toJSON().toString(),
+            id: new Date().toJSON().toString(), // ✅ Correto agora
             name: name,
             email: email,
             telefone: telefone
@@ -32,16 +32,16 @@ const AddUser = (props: Props) => {
                 <h3>Adicionar Usuário</h3>
             </div>
             <form onSubmit={onSubmitBtnClickHnd}>
-                <div>
-                    <label>Nome: </label>
-                    <input 
-                        type="text" 
-                        value={name} 
-                        onChange={(e) => setName(e.target.value)} 
-                        required
-                    />
-                </div>
-                <div>
+                <div className="form-group"> 
+                        <label>Nome: </label>
+                        <input 
+                            type="text" 
+                            value={name} 
+                            onChange={(e) => setName(e.target.value)} 
+                            required
+                        />
+                    </div>
+                <div className="form-group">
                     <label>Email: </label>
                     <input 
                         type="email" 
@@ -50,7 +50,7 @@ const AddUser = (props: Props) => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Telefone: </label>
                     <input 
                         type="tel" 
@@ -59,9 +59,9 @@ const AddUser = (props: Props) => {
                         required
                     />
                 </div>
-                <div>
-                    <input type="button" value="Voltar" onClick={onBackBtnClickHnd} />
-                    <input type="submit" value="Adicionar Usuário" />
+                <div className="button-group">
+                    <button type="button" onClick={onBackBtnClickHnd} className="cancel-button">Cancelar</button>
+                    <button type="submit" className="submit-button">Salvar</button>
                 </div>
             </form>
         </div>

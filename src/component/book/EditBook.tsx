@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { IBook } from "./Book.type";
-import "./BookForm.style.css";
+import "../styles/shared.css";
 
 type Props = {
     generosDisponiveis: string[];

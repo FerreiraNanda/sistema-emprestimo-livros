@@ -1,4 +1,3 @@
-
 import { IBook } from "../book/Book.type";
 import { IUser } from "../user/User.type";
 import { IEmployee } from "../employee/Employee.type";

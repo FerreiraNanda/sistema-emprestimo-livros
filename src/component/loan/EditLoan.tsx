@@ -3,7 +3,7 @@ import { ILoan } from "./Loan.type";
 import { IBook } from "../book/Book.type";
 import { IUser } from "../user/User.type";
 import { IEmployee } from "../employee/Employee.type";
-import "./LoanForm.style.css";
+import "../styles/shared.css";
 
 type Props = {
     data: ILoan;

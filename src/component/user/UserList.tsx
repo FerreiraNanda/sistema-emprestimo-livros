@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { IUser } from "./User.type";
-import "./UserList.style.css";
+import "../styles/shared.css";
 import UserModal from "./UserModal";
+import { VisibilityIcon, EditIcon, CloseIcon } from "../icons";
 
 type Props = {
     list: IUser[];
@@ -43,11 +44,29 @@ const UserList = (props: Props) => {
                                 <td>{user.email}</td>
                                 <td>{user.telefone || "-"}</td>
                                 <td>
-                                    <div>
-                                        <input type="button" value="Visualizar" onClick={() => viewUser(user)} />
-                                        <input type="button" value="Editar" onClick={() => onEdit(user)} />
-                                        <input type="button" value="Excluir" onClick={() => onDeleteClickHnd(user)} />
-                                    </div>
+                                    <div style={{ display: "flex", gap: "0.5rem" }}>
+                                    <button
+                                        aria-label="Visualizar"
+                                        onClick={() => viewUser(user)}
+                                        title="Visualizar"
+                                        style={{ background: "none", border: "none", cursor: "pointer" }}>
+                                        <VisibilityIcon/>
+                                    </button>
+                                    <button
+                                        aria-label="Editar"
+                                        onClick={() => onEdit(user)}
+                                        title="Editar"
+                                        style={{ background: "none", border: "none", cursor: "pointer" }}>
+                                        <EditIcon/>
+                                    </button>
+                                    <button
+                                        aria-label="Excluir"
+                                        onClick={() => onDeleteClickHnd(user)}
+                                        title="Excluir"
+                                        style={{ background: "none", border: "none", cursor: "pointer" }}>
+                                        <CloseIcon/>
+                                    </button>
+                                </div>
                                 </td>
                             </tr>
                         );

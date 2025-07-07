@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IBook } from "./Book.type";
-import "./BookForm.style.css";
+import "../styles/shared.css";
 
 type Props = {
     generosDisponiveis: string[];
@@ -91,9 +91,9 @@ const AddBook = ({ generosDisponiveis, onBackBtnClickHnd, onSubmitClickHnd }: Pr
                     </select>
                 </div>
                 
-                <div className="button-group">
-                    <button type="button" onClick={onBackBtnClickHnd}>Cancelar</button>
-                    <button type="submit">Salvar</button>
+               <div className="button-group">
+                    <button type="button" onClick={onBackBtnClickHnd} className="cancel-button">Cancelar</button>
+                    <button type="submit" className="submit-button">Salvar</button>
                 </div>
             </form>
         </div>

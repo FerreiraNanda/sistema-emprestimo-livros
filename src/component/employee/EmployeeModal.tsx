@@ -1,5 +1,5 @@
 import { IEmployee } from "./Employee.type";
-import "./EmployeeModal.style.css";
+import "../styles/shared.css";
 
 type Props = {
     onClose: () => void;
@@ -8,24 +8,31 @@ type Props = {
 
 const EmployeeModal = (props: Props) => {
     const { onClose, data } = props;
-
-    return (
-        <div id="myModal" className="modal">
+return (
+        <div className="modal-overlay">
             <div className="modal-content">
-                <span className="close" onClick={onClose}>&times;</span>
-                <h3>Detalhes do Funcionário</h3>
-                <div>
-                    <label><strong>Nome:</strong> {data.name}</label>
-                </div>
-                <div>
-                    <label><strong>Matrícula:</strong> {data.registrationNumber}</label>
-                </div>
-                <div>
-                    <label><strong>Cargo:</strong> {data.position}</label>
-                </div>
+            <button className="close-button" onClick={onClose}>×</button>
+            <h3>Detalhes do Funcionário</h3>
+
+            <div className="detail-row">
+                <span className="detail-label">Nome:</span>
+                <span className="detail-value">{data.name}</span>
+            </div>
+
+            <div className="detail-row">
+                <span className="detail-label">Matrícula:</span>
+                <span className="detail-value">{data.registrationNumber}</span>
+            </div>
+
+            <div className="detail-row">
+                <span className="detail-label">Cargo:</span>
+                <span className="detail-value">{data.position}</span>
+            </div>
             </div>
         </div>
     );
+
 };
+
 
 export default EmployeeModal;

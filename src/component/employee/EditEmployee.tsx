@@ -1,7 +1,6 @@
-// src/component/employee/EditEmployee.tsx
 import { useState } from "react";
 import { IEmployee } from "./Employee.type";
-import "./EmployeeForm.style.css";
+import "../styles/shared.css";
 
 type Props = {
     data: IEmployee;

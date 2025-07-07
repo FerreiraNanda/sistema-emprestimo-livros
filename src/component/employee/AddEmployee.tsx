@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./EmployeeForm.style.css";
+import "../styles/shared.css";
 import { IEmployee } from "./Employee.type";
 
 type Props = {
@@ -32,7 +32,7 @@ const AddEmployee = (props: Props) => {
                 <h3>Adicionar Funcionário</h3>
             </div>
             <form onSubmit={onSubmitBtnClickHnd}>
-                <div>
+                <div className="form-group">
                     <label>Nome: </label>
                     <input 
                         type="text" 
@@ -41,7 +41,7 @@ const AddEmployee = (props: Props) => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Matrícula: </label>
                     <input 
                         type="text" 
@@ -50,7 +50,7 @@ const AddEmployee = (props: Props) => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Cargo: </label>
                     <input 
                         type="text" 
@@ -59,9 +59,9 @@ const AddEmployee = (props: Props) => {
                         required
                     />
                 </div>
-                <div>
-                    <input type="button" value="Voltar" onClick={onBackBtnClickHnd} />
-                    <input type="submit" value="Adicionar" />
+                <div className="button-group">
+                    <button type="button" onClick={onBackBtnClickHnd} className="cancel-button">Cancelar</button>
+                    <button type="submit" className="submit-button">Salvar</button>
                 </div>
             </form>
         </div>

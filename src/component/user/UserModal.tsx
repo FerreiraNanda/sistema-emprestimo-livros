@@ -1,6 +1,6 @@
 // components/user/UserModal.tsx
 import { IUser } from "./User.type";
-import "./UserModal.style.css";
+import "../styles/shared.css";
 
 type Props = {
     onClose: () => void;
@@ -10,23 +10,30 @@ type Props = {
 const UserModal = (props: Props) => {
     const { onClose, data } = props;
 
-    return (
-        <div id="myModal" className="modal">
+ return(
+        <div className="modal-overlay">
             <div className="modal-content">
-                <span className="close" onClick={onClose}>&times;</span>
-                <h3>Detalhes do Usuário</h3>
-                <div>
-                    <label>Nome: {data.name}</label>
-                </div>
-                <div>
-                    <label>Email: {data.email}</label>
-                </div>
-                <div>
-                    <label>Telefone: {data.telefone || "Não informado"}</label>
-                </div>
+            <button className="close-button" onClick={onClose}>×</button>
+            <h3>Detalhes do Usuário</h3>
+
+            <div className="detail-row">
+                <span className="detail-label">Nome:</span>
+                <span className="detail-value">{data.name}</span>
+            </div>
+
+            <div className="detail-row">
+                <span className="detail-label">Email:</span>
+                <span className="detail-value">{data.email}</span>
+            </div>
+
+            <div className="detail-row">
+                <span className="detail-label">Telefone:</span>
+                <span className="detail-value">{data.telefone || "Não informado"}</span>
+            </div>
             </div>
         </div>
     );
+
 };
 
 export default UserModal;

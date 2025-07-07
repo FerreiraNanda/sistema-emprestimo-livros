@@ -1,5 +1,5 @@
 import { ILoan } from "./Loan.type";
-import "./LoanModal.style.css";
+import "../styles/shared.css";
 
 type Props = {
     data: ILoan;

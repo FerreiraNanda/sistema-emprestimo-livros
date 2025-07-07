@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { IBook } from "./Book.type";
-import "./BookList.style.css";
+import "../styles/shared.css";
 import BookModal from "./BookModal";
+import { VisibilityIcon, EditIcon, CloseIcon } from "../icons";
 
 type Props = {
     generosDisponiveis: string[];
@@ -24,6 +25,9 @@ const BookList = ({ list, onDeleteClickHnd, onEdit }: Props) => {
 
     return (
         <div className="table-container">
+            <article>
+                <h3 className="list-header">Lista de Livros</h3>
+            </article>
             <table className="compact-table">
                 <thead>
                     <tr>
@@ -42,29 +46,35 @@ const BookList = ({ list, onDeleteClickHnd, onEdit }: Props) => {
                             <td>{book.autor}</td>
                             <td>{book.genero}</td>
                             <td>{book.isbn}</td>
-                            <td>{book.disponivel ? "✔️" : "❌"}</td>
+                            <td>{book.disponivel ? "Sim" : "Não"}</td>
                             <td>
-                                <div className="table-actions">
-                                    <button 
+                                <div className="table-actions" style={{ display: 'flex', gap: '0.5rem' }}>
+                                    <button
+                                        aria-label="Visualizar"
                                         className="action-btn view-btn"
                                         onClick={() => viewBook(book)}
                                         title="Visualizar"
+                                        style={{ background: "none", border: "none", cursor: "pointer" }}
                                     >
-                                        👁️
+                                        <VisibilityIcon />
                                     </button>
-                                    <button 
+                                    <button
+                                        aria-label="Editar"
                                         className="action-btn edit-btn"
                                         onClick={() => onEdit(book)}
                                         title="Editar"
+                                        style={{ background: "none", border: "none", cursor: "pointer" }}
                                     >
-                                        ✏️
+                                        <EditIcon />
                                     </button>
-                                    <button 
+                                    <button
+                                        aria-label="Excluir"
                                         className="action-btn delete-btn"
                                         onClick={() => onDeleteClickHnd(book)}
                                         title="Excluir"
+                                        style={{ background: "none", border: "none", cursor: "pointer" }}
                                     >
-                                        🗑️
+                                        <CloseIcon />
                                     </button>
                                 </div>
                             </td>

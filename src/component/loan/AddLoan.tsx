@@ -1,6 +1,5 @@
-// src/component/loan/AddLoan.tsx
 import { useState } from "react";
-import "./LoanForm.style.css";
+import "../styles/shared.css";
 import { ILoan } from "./Loan.type";
 import { IBook } from "../book/Book.type";
 import { IUser } from "../user/User.type";
@@ -135,9 +134,9 @@ const AddLoan = ({ books, users, employees, onBackBtnClickHnd, onSubmitClickHnd 
                     />
                 </div>
 
-                <div className="form-actions">
-                    <button type="button" onClick={onBackBtnClickHnd}>Cancelar</button>
-                    <button type="submit">Registrar</button>
+                <div className="button-group">
+                    <button type="button" onClick={onBackBtnClickHnd} className="cancel-button">Cancelar</button>
+                    <button type="submit" className="submit-button">Salvar</button>
                 </div>
             </form>
         </div>

@@ -1,8 +1,6 @@
-
 import { useState } from "react";
 import { IUser } from "./User.type";
-import "./UserForm.style.css";
-
+import "../styles/shared.css";
 type Props = {
     data: IUser;
     onBackBtnClickHnd: () => void;

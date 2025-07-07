@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IEmployee } from "./Employee.type";
-import "./EmployeeList.style.css";
+import "../styles/shared.css";
+import { VisibilityIcon, EditIcon, CloseIcon } from "../icons";
 import EmployeeModal from "./EmployeeModal";
 
 type Props = {
@@ -24,9 +25,9 @@ const EmployeeList = (props: Props) => {
 return (
     <div>
         <article>
-            <h3 className="list-header">Lista de Funcionários</h3>
+            <h3 className="list-header">Funcionários Ativos</h3>
         </article>
-        <table>
+         <table className="compact-table">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -43,11 +44,29 @@ return (
                             <td>{employee.registrationNumber}</td>
                             <td>{employee.position}</td>
                             <td>
-                                <div>
-                                    <input type="button" value="Visualizar" onClick={() => viewEmployee(employee)} />
-                                    <input type="button" value="Editar" onClick={() => onEdit(employee)} />
-                                    <input type="button" value="Excluir" onClick={() => onDeleteClickHnd(employee)} />
-                                </div>
+                            <div>
+                                <button 
+                                onClick={() => viewEmployee(employee)} 
+                                style={{ background: "none"}}
+                                title="Visualizar"
+                                >
+                                <VisibilityIcon />
+                                </button>
+                                <button 
+                                onClick={() => onEdit(employee)} 
+                                style={{ background: "none" }}
+                                title="Editar"
+                                >
+                                <EditIcon />
+                                </button>
+                                <button 
+                                onClick={() => onDeleteClickHnd(employee)} 
+                                style={{ background: "none" }}
+                                title="Excluir"
+                                >
+                                <CloseIcon />
+                                </button>
+                            </div>
                             </td>
                         </tr>
                     );
