@@ -34,7 +34,7 @@ const EditUser = (props: Props) => {
                 <h3>Editar Usuário</h3>
             </div>
             <form onSubmit={onSubmitBtnClickHnd}>
-                <div>
+                <div className="form-group">
                     <label>Nome: </label>
                     <input 
                         type="text" 
@@ -43,7 +43,7 @@ const EditUser = (props: Props) => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>E-mail: </label>
                     <input 
                         type="email" 
@@ -52,7 +52,7 @@ const EditUser = (props: Props) => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Telefone: </label>
                     <input 
                         type="text" 
@@ -60,9 +60,13 @@ const EditUser = (props: Props) => {
                         onChange={(e) => setTelefone(e.target.value)}
                     />
                 </div>
-                <div>
-                    <input type="button" value="Voltar" onClick={onBackBtnClickHnd} />
-                    <input type="submit" value="Atualizar Usuário" />
+                 <div className="form-actions">
+                    <button type="button" onClick={onBackBtnClickHnd} className="button secondary">
+                        Voltar
+                    </button>
+                    <button type="submit" className="button primary">
+                        Atualizar
+                    </button>
                 </div>
             </form>
         </div>

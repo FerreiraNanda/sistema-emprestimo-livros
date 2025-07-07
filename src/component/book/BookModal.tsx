@@ -1,6 +1,6 @@
 import { IBook } from "./Book.type";
 import "../styles/shared.css";
-
+import {CloseIcon} from "../icons";
 type Props = {
     data: IBook;
     onClose: () => void;
@@ -10,7 +10,7 @@ const BookModal = ({ data, onClose }: Props) => {
     return (
         <div className="modal-overlay">
             <div className="modal-content">
-                <button className="close-button" onClick={onClose}>×</button>
+                <button className="close-btn" onClick={onClose} style={{ background: "none"}}><CloseIcon/></button>
                 <h2>Detalhes do Livro</h2>
                 
                 <div className="detail-row">

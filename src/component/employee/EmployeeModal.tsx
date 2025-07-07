@@ -1,6 +1,6 @@
 import { IEmployee } from "./Employee.type";
 import "../styles/shared.css";
-
+import {CloseIcon} from "../icons";
 type Props = {
     onClose: () => void;
     data: IEmployee;
@@ -11,7 +11,7 @@ const EmployeeModal = (props: Props) => {
 return (
         <div className="modal-overlay">
             <div className="modal-content">
-            <button className="close-button" onClick={onClose}>×</button>
+            <button className="close-btn" onClick={onClose} style={{ background: "none"}}><CloseIcon/></button>
             <h3>Detalhes do Funcionário</h3>
 
             <div className="detail-row">

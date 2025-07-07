@@ -100,18 +100,11 @@ const EditBook = ({ generosDisponiveis, data, onBackBtnClickHnd, onUpdateClickHn
                 </div>
                 
                 <div className="form-actions">
-                    <button 
-                        type="button" 
-                        onClick={onBackBtnClickHnd}
-                        className="button secondary"
-                    >
+                    <button type="button" onClick={onBackBtnClickHnd} className="button secondary">
                         Voltar
                     </button>
-                    <button 
-                        type="submit" 
-                        className="button primary"
-                    >
-                        Atualizar Livro
+                    <button type="submit" className="button primary">
+                        Atualizar
                     </button>
                 </div>
             </form>

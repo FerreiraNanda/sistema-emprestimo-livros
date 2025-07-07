@@ -1,5 +1,6 @@
 import { ILoan } from "./Loan.type";
 import "../styles/shared.css";
+import {CloseIcon} from "../icons";
 
 type Props = {
     data: ILoan;
@@ -11,10 +12,11 @@ const LoanModal = ({ data, onClose }: Props) => {
         return new Date(dateString).toLocaleDateString('pt-BR');
     };
 
-    return (
-        <div className="modal-overlay">
-            <div className="modal-content">
-                <button className="close-btn" onClick={onClose}>×</button>
+return (
+    <div className="modal-overlay">
+        <div className="modal-content">
+                <button className="close-btn" onClick={onClose}
+                style={{ background: "none"}}><CloseIcon/></button>
                 <h2>Detalhes do Empréstimo</h2>
                 
                 <div className="detail-row">

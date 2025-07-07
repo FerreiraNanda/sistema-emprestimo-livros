@@ -33,7 +33,7 @@ const EditEmployee = (props: Props) => {
                 <h3>Editar Funcionário</h3>
             </div>
             <form onSubmit={onSubmitBtnClickHnd}>
-                <div>
+                <div className="form-group">
                     <label>Nome: </label>
                     <input 
                         type="text" 
@@ -42,7 +42,7 @@ const EditEmployee = (props: Props) => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Matrícula: </label>
                     <input 
                         type="text" 
@@ -51,7 +51,7 @@ const EditEmployee = (props: Props) => {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Cargo: </label>
                     <input 
                         type="text" 
@@ -60,9 +60,13 @@ const EditEmployee = (props: Props) => {
                         required
                     />
                 </div>
-                <div>
-                    <input type="button" value="Voltar" onClick={onBackBtnClickHnd} />
-                    <input type="submit" value="Atualizar" />
+                 <div className="form-actions">
+                    <button type="button" onClick={onBackBtnClickHnd} className="button secondary">
+                        Voltar
+                    </button>
+                    <button type="submit" className="button primary">
+                        Atualizar
+                    </button>
                 </div>
             </form>
         </div>
