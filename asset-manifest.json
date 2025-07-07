@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/sistema-emprestimo-livros/static/css/main.d71a6646.css",
-    "main.js": "/sistema-emprestimo-livros/static/js/main.5eca5896.js",
+    "main.css": "/sistema-emprestimo-livros/static/css/main.e58fffd9.css",
+    "main.js": "/sistema-emprestimo-livros/static/js/main.03639b6e.js",
     "static/js/453.c5b2141e.chunk.js": "/sistema-emprestimo-livros/static/js/453.c5b2141e.chunk.js",
     "index.html": "/sistema-emprestimo-livros/index.html",
-    "main.d71a6646.css.map": "/sistema-emprestimo-livros/static/css/main.d71a6646.css.map",
-    "main.5eca5896.js.map": "/sistema-emprestimo-livros/static/js/main.5eca5896.js.map",
+    "main.e58fffd9.css.map": "/sistema-emprestimo-livros/static/css/main.e58fffd9.css.map",
+    "main.03639b6e.js.map": "/sistema-emprestimo-livros/static/js/main.03639b6e.js.map",
     "453.c5b2141e.chunk.js.map": "/sistema-emprestimo-livros/static/js/453.c5b2141e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d71a6646.css",
-    "static/js/main.5eca5896.js"
+    "static/css/main.e58fffd9.css",
+    "static/js/main.03639b6e.js"
   ]
 }
