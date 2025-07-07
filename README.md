@@ -63,14 +63,6 @@ src/
 
 ## Observações
 
-- Os dados são salvos no `localStorage` do navegador, não havendo backend.
+- Os dados são salvos no `localStorage` do navegador.
 - O campo "registeredBy" do livro pode ser adaptado para registrar o funcionário responsável pelo cadastro.
-- O projeto é apenas para fins didáticos e pode ser expandido conforme a necessidade.
 
-## Licença
-
-Este projeto está sob a licença MIT.
-
----
-
-Desenvolvido por [Seu Nome](https://github.com/seu-usuario)
