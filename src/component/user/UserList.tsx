@@ -22,61 +22,47 @@ const UserList = (props: Props) => {
 
     const onCloseModal = () => setShowModal(false);
 
-    return (
-        <div>
-            <article>
-                <h3 className="list-header">Lista de Usuários</h3>
-            </article>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>Telefone</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {list.map((user) => {
-                        return (
-                            <tr key={user.id}>
-                                <td>{user.name}</td>
-                                <td>{user.email}</td>
-                                <td>{user.telefone || "-"}</td>
-                                <td>
-                                    <div style={{ display: "flex", gap: "0.5rem" }}>
-                                    <button
-                                        aria-label="Visualizar"
-                                        onClick={() => viewUser(user)}
-                                        title="Visualizar"
-                                        style={{ background: "none", border: "none", cursor: "pointer" }}>
-                                        <VisibilityIcon/>
-                                    </button>
-                                    <button
-                                        aria-label="Editar"
-                                        onClick={() => onEdit(user)}
-                                        title="Editar"
-                                        style={{ background: "none", border: "none", cursor: "pointer" }}>
-                                        <EditIcon/>
-                                    </button>
-                                    <button
-                                        aria-label="Excluir"
-                                        onClick={() => onDeleteClickHnd(user)}
-                                        title="Excluir"
-                                        style={{ background: "none", border: "none", cursor: "pointer" }}>
-                                        <CloseIcon/>
-                                    </button>
+return (
+    <div>
+        <article>
+            <h3 className="list-header">Lista de Usuários</h3>
+        </article>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {list.map((user) => {
+                    return (
+                        <tr key={user.id}>
+                            <td data-label="Nome">{user.name}</td>
+                            <td data-label="Email">{user.email}</td>
+                            <td data-label="Telefone">{user.telefone || "-"}</td>
+                            <td data-label="Ações">
+                                <div style={{ display: "flex", gap: "0.5rem" }}>
+                                <button aria-label="Visualizar" onClick={() => viewUser(user)} title="Visualizar" style={{ background: "none"}}>
+                                    <VisibilityIcon/>
+                                </button>
+                                <button aria-label="Editar" onClick={() => onEdit(user)} title="Editar" style={{ background: "none"}}>
+                                    <EditIcon/>
+                                </button>
+                                <button aria-label="Excluir" onClick={() => onDeleteClickHnd(user)} title="Excluir" style={{ background: "none", border: "none", cursor: "pointer" }}>
+                                    <CloseIcon/>
+                                </button>
                                 </div>
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                         );
-                    })}
-                </tbody>
-            </table>
-            {showModal && dataToShow !== null && (
-                <UserModal onClose={onCloseModal} data={dataToShow} />
-            )}
-        </div>
+                })}
+            </tbody>
+        </table>
+            {showModal && dataToShow !== null && (<UserModal onClose={onCloseModal} data={dataToShow} />)}
+    </div>
     );
 };
 

@@ -40,30 +40,18 @@ return (
                 {list.map((employee) => {
                     return (
                         <tr key={employee.id}>
-                            <td>{employee.name}</td>
-                            <td>{employee.registrationNumber}</td>
-                            <td>{employee.position}</td>
-                            <td>
+                            <td data-label="Nome">{employee.name}</td>
+                            <td data-label="Matrícula">{employee.registrationNumber}</td>
+                            <td data-label="Cargo">{employee.position}</td>
+                            <td data-label="Ações">
                             <div>
-                                <button 
-                                onClick={() => viewEmployee(employee)} 
-                                style={{ background: "none"}}
-                                title="Visualizar"
-                                >
+                                <button onClick={() => viewEmployee(employee)}  style={{ background: "none"}} title="Visualizar">
                                 <VisibilityIcon />
                                 </button>
-                                <button 
-                                onClick={() => onEdit(employee)} 
-                                style={{ background: "none" }}
-                                title="Editar"
-                                >
+                                <button onClick={() => onEdit(employee)} style={{ background: "none" }} title="Editar">
                                 <EditIcon />
                                 </button>
-                                <button 
-                                onClick={() => onDeleteClickHnd(employee)} 
-                                style={{ background: "none" }}
-                                title="Excluir"
-                                >
+                                <button onClick={() => onDeleteClickHnd(employee)} style={{ background: "none" }} title="Excluir">
                                 <CloseIcon />
                                 </button>
                             </div>

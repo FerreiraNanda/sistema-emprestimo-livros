@@ -126,14 +126,15 @@ const EditLoan = ({ data, books, users, employees, onBackBtnClickHnd, onUpdateCl
                         className="readonly"
                     />
                 </div>
-                <div className="form-actions">
-                    <button type="button" onClick={onBackBtnClickHnd} className="button secondary">
-                        Voltar
-                    </button>
-                    <button type="submit" className="button primary">
-                        Atualizar
-                    </button>
-                </div>
+
+               <div className="form-actions">
+                <button type="button" onClick={onBackBtnClickHnd} className="button secondary">
+                    Voltar
+                </button>
+                <button type="submit" className="button primary">
+                    Atualizar
+                </button>
+            </div>
             </form>
         </div>
     );

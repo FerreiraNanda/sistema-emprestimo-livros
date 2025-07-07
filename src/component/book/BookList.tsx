@@ -42,38 +42,20 @@ const BookList = ({ list, onDeleteClickHnd, onEdit }: Props) => {
                 <tbody>
                     {list.map((book) => (
                         <tr key={book.id}>
-                            <td>{book.titulo}</td>
-                            <td>{book.autor}</td>
-                            <td>{book.genero}</td>
-                            <td>{book.isbn}</td>
-                            <td>{book.disponivel ? "Sim" : "Não"}</td>
-                            <td>
+                            <td data-label="Título">{book.titulo}</td>
+                            <td data-label="Autor">{book.autor}</td>
+                            <td data-label="Gênero">{book.genero}</td>
+                            <td data-label="ISBN">{book.isbn}</td>
+                            <td data-label="Disponível">{book.disponivel ? "Sim" : "Não"}</td>
+                            <td data-label="Ações">
                                 <div className="table-actions" style={{ display: 'flex', gap: '0.5rem' }}>
-                                    <button
-                                        aria-label="Visualizar"
-                                        className="action-btn view-btn"
-                                        onClick={() => viewBook(book)}
-                                        title="Visualizar"
-                                        style={{ background: "none", border: "none", cursor: "pointer" }}
-                                    >
+                                    <button aria-label="Visualizar" className="action-btn view-btn" onClick={() => viewBook(book)} title="Visualizar" style={{ background: "none"}}>
                                         <VisibilityIcon />
                                     </button>
-                                    <button
-                                        aria-label="Editar"
-                                        className="action-btn edit-btn"
-                                        onClick={() => onEdit(book)}
-                                        title="Editar"
-                                        style={{ background: "none", border: "none", cursor: "pointer" }}
-                                    >
+                                    <button aria-label="Editar" className="action-btn edit-btn" onClick={() => onEdit(book)} title="Editar" style={{ background: "none"}}>
                                         <EditIcon />
                                     </button>
-                                    <button
-                                        aria-label="Excluir"
-                                        className="action-btn delete-btn"
-                                        onClick={() => onDeleteClickHnd(book)}
-                                        title="Excluir"
-                                        style={{ background: "none", border: "none", cursor: "pointer" }}
-                                    >
+                                    <button aria-label="Excluir" className="action-btn delete-btn" onClick={() => onDeleteClickHnd(book)} title="Excluir" style={{ background: "none"}}>
                                         <CloseIcon />
                                     </button>
                                 </div>

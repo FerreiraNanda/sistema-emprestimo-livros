@@ -59,87 +59,84 @@ const AddLoan = ({ books, users, employees, onBackBtnClickHnd, onSubmitClickHnd 
         onSubmitClickHnd(newLoan);
         onBackBtnClickHnd();
     };
-    return (
-        <div className="form-container">
-            <h2>Registrar Empréstimo</h2>
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label>Livro:</label>
-                    <select
-                        name="bookId"
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Selecione um livro</option>
-                        {books.filter(b => b.disponivel).map(book => (
-                            <option key={book.id} value={book.id}>
-                                {book.titulo} - {book.autor}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+return (
+    <div className="form-container">
+        <h2>Registrar Empréstimo</h2>
+        <form onSubmit={onSubmit}>
+            <div className="form-group">
+                <label>Livro:</label>
+                <select
+                    name="bookId"
+                    onChange={handleChange}
+                    required>
+                    <option value="">Selecione um livro</option>
+                    {books.filter(b => b.disponivel).map(book => (
+                        <option key={book.id} value={book.id}>
+                            {book.titulo} - {book.autor}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
-                <div className="form-group">
-                    <label>Usuário:</label>
-                    <select
-                        name="userId"
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Selecione um usuário</option>
-                        {users.map(user => (
-                            <option key={user.id} value={user.id}>
-                                {user.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+            <div className="form-group">
+                <label>Usuário:</label>
+                <select
+                    name="userId"
+                    onChange={handleChange}
+                    required>
+                    <option value="">Selecione um usuário</option>
+                    {users.map(user => (
+                        <option key={user.id} value={user.id}>
+                            {user.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
-                <div className="form-group">
-                    <label>Funcionário:</label>
-                    <select
-                        name="employeeId"
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Selecione um funcionário</option>
-                        {employees.map(employee => (
-                            <option key={employee.id} value={employee.id}>
-                                {employee.name} ({employee.position})
-                            </option>
-                        ))}
-                    </select>
-                </div>
+            <div className="form-group">
+                <label>Funcionário:</label>
+                <select
+                    name="employeeId"
+                    onChange={handleChange}
+                    required>
+                    <option value="">Selecione um funcionário</option>
+                    {employees.map(employee => (
+                        <option key={employee.id} value={employee.id}>
+                            {employee.name} ({employee.position})
+                        </option>
+                    ))}
+                </select>
+            </div>
 
-                <div className="form-group">
-                    <label>Data de Empréstimo:</label>
-                    <input
-                        type="date"
-                        name="loanDate"
-                        value={formData.loanDate}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+            <div className="form-group">
+                <label>Data de Empréstimo:</label>
+                <input
+                    type="date"
+                    name="loanDate"
+                    value={formData.loanDate}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
 
-                <div className="form-group">
-                    <label>Data de Devolução:</label>
-                    <input
-                        type="date"
-                        name="returnDate"
-                        value={formData.returnDate}
-                        onChange={handleChange}
-                        required
-                        min={formData.loanDate}
-                    />
-                </div>
+            <div className="form-group">
+                <label>Data de Devolução:</label>
+                <input
+                    type="date"
+                    name="returnDate"
+                    value={formData.returnDate}
+                    onChange={handleChange}
+                    required
+                    min={formData.loanDate}
+                />
+            </div>
 
-                <div className="button-group">
-                    <button type="button" onClick={onBackBtnClickHnd} className="cancel-button">Cancelar</button>
-                    <button type="submit" className="submit-button">Salvar</button>
-                </div>
-            </form>
-        </div>
+            <div className="button-group">
+                <button type="button" onClick={onBackBtnClickHnd} className="cancel-button">Cancelar</button>
+                <button type="submit" className="submit-button">Salvar</button>
+            </div>
+        </form>
+    </div>
     );
 };
 

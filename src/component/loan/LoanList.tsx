@@ -32,82 +32,66 @@ const LoanList = ({ list, onDeleteClickHnd, onEdit, onReturn }: Props) => {
         return "Em andamento";
     };
 
-    return (
-        <div className="table-container">
-            <article>
-                <h3 className="list-header">Empréstimo Registrados</h3>
-            </article>
-            <table className="compact-table">
-                <thead>
-                    <tr>
-                        <th>Livro</th>
-                        <th>Usuário</th>
-                        <th>Data Empréstimo</th>
-                        <th>Data Devolução</th>
-                        <th>Status</th>
-                        <th>Ações</th>
+return (
+    <div className="table-container">
+        <article>
+            <h3 className="list-header">Empréstimo Registrados</h3>
+        </article>
+        <table className="compact-table">
+            <thead>
+                <tr>
+                    <th>Livro</th>
+                    <th>Usuário</th>
+                    <th>Data Empréstimo</th>
+                    <th>Data Devolução</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {list.map((loan) => (
+                    <tr key={loan.id}>
+                        <td data-label="Livro">{loan.book?.titulo || "-"}</td>
+                        <td data-label="Usuário">{loan.user?.name || "-"}</td>
+                        <td data-label="Data Empréstimo">{formatDate(loan.loanDate)}</td>
+                        <td data-label="Data Devolução">{formatDate(loan.returnDate)}</td>
+                        <td data-label="Status">{getStatus(loan)}</td>
+                        <td data-label="Ações">
+                            <div className="table-actions" style={{ display: "flex", gap: "0.5rem" }}>
+                                <button
+                                aria-label="Visualizar"
+                                onClick={() => viewLoan(loan)}
+                                title="Visualizar"
+                                style={{ background: "none"}}>
+                                <VisibilityIcon />
+                                </button>
+                                {!loan.returned && (
+                                <>
+                                    <button
+                                    aria-label="Editar"
+                                    onClick={() => onEdit(loan)}
+                                    title="Editar"
+                                    style={{ background: "none"}}>
+                                    <EditIcon />
+                                    </button>
+                                    <button aria-label="Devolver" onClick={() => onReturn(loan)} title="Devolver" style={{ background: "none"}}>
+                                    <ReturnIcon />
+                                    </button>
+                                </>
+                                )}
+                                <button aria-label="Excluir" onClick={() => onDeleteClickHnd(loan)} title="Excluir" style={{ background: "none", border: "none", cursor: "pointer" }}>
+                                <CloseIcon />
+                                </button>
+                            </div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {list.map((loan) => (
-                        <tr key={loan.id}>
-                            <td>{loan.book?.titulo || "-"}</td>
-                            <td>{loan.user?.name || "-"}</td>
-                            <td>{formatDate(loan.loanDate)}</td>
-                            <td>{formatDate(loan.returnDate)}</td>
-                            <td>{getStatus(loan)}</td>
-                            <td>
-                                <div className="table-actions" style={{ display: "flex", gap: "0.5rem" }}>
-                                    <button
-                                    aria-label="Visualizar"
-                                    onClick={() => viewLoan(loan)}
-                                    title="Visualizar"
-                                    style={{ background: "none", border: "none", cursor: "pointer" }}
-                                    >
-                                    <VisibilityIcon />
-                                    </button>
-                                    {!loan.returned && (
-                                    <>
-                                        <button
-                                        aria-label="Editar"
-                                        onClick={() => onEdit(loan)}
-                                        title="Editar"
-                                        style={{ background: "none", border: "none", cursor: "pointer" }}
-                                        >
-                                        <EditIcon />
-                                        </button>
-                                        <button
-                                        aria-label="Devolver"
-                                        onClick={() => onReturn(loan)}
-                                        title="Devolver"
-                                        style={{ background: "none", border: "none", cursor: "pointer" }}
-                                        >
-                                        <ReturnIcon />
-                                        </button>
-                                    </>
-                                    )}
-                                    <button
-                                    aria-label="Excluir"
-                                    onClick={() => onDeleteClickHnd(loan)}
-                                    title="Excluir"
-                                    style={{ background: "none", border: "none", cursor: "pointer" }}
-                                    >
-                                    <CloseIcon />
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-
-            {showModal && dataToShow && (
-                <LoanModal 
-                    data={dataToShow} 
-                    onClose={onCloseModal}
-                />
-            )}
-        </div>
+                ))}
+            </tbody>
+        </table>
+        {showModal && dataToShow && (
+            <LoanModal data={dataToShow} onClose={onCloseModal}/>
+        )}
+    </div>
     );
 };
 

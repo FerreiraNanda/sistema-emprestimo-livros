@@ -28,12 +28,11 @@ const EditBook = ({ generosDisponiveis, data, onBackBtnClickHnd, onUpdateClickHn
         onBackBtnClickHnd();
     };
 
-    return (
-<div className="form-container">
-            <div className="form-header">
-                <h2>Editar Livro</h2>
-            </div>
-            
+return (
+    <div className="form-container">
+        <div className="form-header">
+            <h2>Editar Livro</h2>
+        </div>   
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>Título:</label>
@@ -45,8 +44,7 @@ const EditBook = ({ generosDisponiveis, data, onBackBtnClickHnd, onUpdateClickHn
                         required
                         className="form-input"
                     />
-                </div>
-                
+                </div>  
                 <div className="form-group">
                     <label>Autor:</label>
                     <input 
@@ -57,8 +55,7 @@ const EditBook = ({ generosDisponiveis, data, onBackBtnClickHnd, onUpdateClickHn
                         required
                         className="form-input"
                     />
-                </div>
-                
+                </div>   
                 <div className="form-group">
                     <label>ISBN:</label>
                     <input 
@@ -69,8 +66,7 @@ const EditBook = ({ generosDisponiveis, data, onBackBtnClickHnd, onUpdateClickHn
                         required
                         className="form-input"
                     />
-                </div>
-                
+                </div>     
                 <div className="form-group">
                     <label>Gênero:</label>
                     <select
@@ -87,8 +83,7 @@ const EditBook = ({ generosDisponiveis, data, onBackBtnClickHnd, onUpdateClickHn
                             </option>
                         ))}
                     </select>
-                </div>
-                
+                </div>  
                 <div className="form-group">
                     <label>Disponibilidade:</label>
                     <input 
@@ -97,8 +92,7 @@ const EditBook = ({ generosDisponiveis, data, onBackBtnClickHnd, onUpdateClickHn
                         readOnly
                         className="form-input readonly"
                     />
-                </div>
-                
+                </div>    
                 <div className="form-actions">
                     <button type="button" onClick={onBackBtnClickHnd} className="button secondary">
                         Voltar
@@ -108,7 +102,7 @@ const EditBook = ({ generosDisponiveis, data, onBackBtnClickHnd, onUpdateClickHn
                     </button>
                 </div>
             </form>
-        </div>
+    </div>
     );
 };
 

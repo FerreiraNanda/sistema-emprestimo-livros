@@ -39,64 +39,60 @@ const AddBook = ({ generosDisponiveis, onBackBtnClickHnd, onSubmitClickHnd }: Pr
         onBackBtnClickHnd();
     };
 
-    return (
-        <div className="form-container">
-            <h2>Adicionar Novo Livro</h2>
-            <form onSubmit={onSubmit}>
-                <div className="form-group">
-                    <label>Título:</label>
-                    <input 
-                        type="text" 
-                        name="titulo"
-                        value={formData.titulo}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+return (
+    <div className="form-container">
+        <h2>Adicionar Novo Livro</h2>
+        <form onSubmit={onSubmit}>
+            <div className="form-group">
+                <label>Título:</label>
+                <input 
+                    type="text" 
+                    name="titulo"
+                    value={formData.titulo}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+            <div className="form-group">
+                <label>Autor:</label>
+                <input 
+                    type="text" 
+                    name="autor"
+                    value={formData.autor}
+                    onChange={handleChange}
+                    required
+                />
+            </div> 
+            <div className="form-group">
+                <label>ISBN:</label>
+                <input 
+                    type="text" 
+                    name="isbn"
+                    value={formData.isbn}
+                    onChange={handleChange}
+                    required
+                />
+            </div> 
+            <div className="form-group">
+                <label>Gênero:</label>
+                <select
+                    name="genero"
+                    value={formData.genero}
+                    onChange={handleChange}
+                    required>
+                    <option value="">Selecione...</option>
+                    {generosDisponiveis.map(genero => (
+                        <option key={genero} value={genero}>{genero}</option>
+                    ))}
+            </select>
+            </div>
                 
-                <div className="form-group">
-                    <label>Autor:</label>
-                    <input 
-                        type="text" 
-                        name="autor"
-                        value={formData.autor}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                
-                <div className="form-group">
-                    <label>ISBN:</label>
-                    <input 
-                        type="text" 
-                        name="isbn"
-                        value={formData.isbn}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                
-                <div className="form-group">
-                    <label>Gênero:</label>
-                    <select
-                        name="genero"
-                        value={formData.genero}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">Selecione...</option>
-                        {generosDisponiveis.map(genero => (
-                            <option key={genero} value={genero}>{genero}</option>
-                        ))}
-                    </select>
-                </div>
-                
-               <div className="button-group">
-                    <button type="button" onClick={onBackBtnClickHnd} className="cancel-button">Cancelar</button>
-                    <button type="submit" className="submit-button">Salvar</button>
-                </div>
-            </form>
-        </div>
+            <div className="button-group">
+                <button type="button" onClick={onBackBtnClickHnd} className="cancel-button">Cancelar</button>
+                <button type="submit" className="submit-button">Salvar</button>
+            </div>
+        </form>
+    </div>
     );
 };
 
