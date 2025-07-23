@@ -1,4 +1,4 @@
-# Sistema de Empréstimo de Livros 📚
+# Sistema de Empréstimo de Livros 
 
 Este é um sistema web para gerenciamento de empréstimos de livros, desenvolvido em React + TypeScript. O sistema permite o cadastro e controle de livros, usuários, funcionários e empréstimos, com interface amigável e responsiva.
 
