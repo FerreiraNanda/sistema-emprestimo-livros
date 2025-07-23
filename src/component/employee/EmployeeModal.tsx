@@ -12,7 +12,7 @@ return (
         <div className="modal-overlay">
             <div className="modal-content">
                 <div className="modal-header">
-                    <h2>Detalhes do Usuário</h2>
+                    <h2>Detalhes do Funcionário</h2>
                     <button className="touch-button  close-btn" onClick={onClose} style={{ background: "white"}}>
                         <CloseIcon/>
                         </button>
