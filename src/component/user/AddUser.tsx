@@ -17,7 +17,7 @@ const AddUser = (props: Props) => {
     const onSubmitBtnClickHnd = (e: React.FormEvent) => {
         e.preventDefault();
         const data: IUser = {
-            id: new Date().toJSON().toString(), // ✅ Correto agora
+            id: new Date().toJSON().toString(), 
             name: name,
             email: email,
             telefone: telefone

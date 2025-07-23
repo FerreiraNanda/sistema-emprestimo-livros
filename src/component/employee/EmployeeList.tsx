@@ -27,7 +27,7 @@ return (
         <article>
             <h3 className="list-header">Funcionários Ativos</h3>
         </article>
-         <table className="compact-table">
+         <table  className="table-container">
             <thead>
                 <tr>
                     <th>Nome</th>
@@ -44,17 +44,17 @@ return (
                             <td data-label="Matrícula">{employee.registrationNumber}</td>
                             <td data-label="Cargo">{employee.position}</td>
                             <td data-label="Ações">
-                            <div>
-                                <button onClick={() => viewEmployee(employee)}  style={{ background: "none"}} title="Visualizar">
-                                <VisibilityIcon />
-                                </button>
-                                <button onClick={() => onEdit(employee)} style={{ background: "none" }} title="Editar">
-                                <EditIcon />
-                                </button>
-                                <button onClick={() => onDeleteClickHnd(employee)} style={{ background: "none" }} title="Excluir">
-                                <CloseIcon />
-                                </button>
-                            </div>
+                                <div style={{ display: "flex", gap: "0.5rem" }}>
+                                <button aria-label="Visualizar" onClick={() => viewEmployee(employee)} title="Visualizar" style={{ background: "none"}}>
+                                    <VisibilityIcon />
+                                    </button>
+                                    <button  aria-label="Editar" onClick={() => onEdit(employee)} title="Editar" style={{ background: "none"}}>
+                                    <EditIcon />
+                                    </button>
+                                    <button aria-label="Excluir" onClick={() => onDeleteClickHnd(employee)} title="Excluir" style={{ background: "none", border: "none", cursor: "pointer"}}>
+                                    <CloseIcon />
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     );

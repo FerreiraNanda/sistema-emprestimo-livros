@@ -191,166 +191,200 @@ const Home = () => {
         _setEmployeeList(updatedList);
         setEmployeePage(EmployeePageEnum.list);
     };
-    return(
-    <>
-        <article className="article-header">
-            <header>
-                <h1>Sistema de Empréstimo de Livros</h1>
-            </header>
 
-        </article>
-        <nav className="tab-navigation">
-            <button 
-                className={activeTab === 'books' ? 'active' : ''}
-                onClick={() => setActiveTab('books')}> Livros </button>
-            <button 
-                className={activeTab === 'users' ? 'active' : ''} onClick={() => setActiveTab('users')}> Usuários </button>
-            <button 
-                className={activeTab === 'loans' ? 'active' : ''} onClick={() => setActiveTab('loans')}> Empréstimos </button>
-            <button 
-                className={activeTab === 'employees' ? 'active' : ''} onClick={() => setActiveTab('employees')}> Funcionários </button>
-        </nav>
+    return (
+        <div className="app-container">
+            <article className="article-header">
+                <header>
+                    <h1 className="main-title">Sistema de Empréstimo de Livros</h1>
+                </header>
+            </article>
 
-        {/*BOOKS */}
-
-        {activeTab === 'books' && (
-            <>
-                {bookPage === BookPageEnum.list && (
-                <>
+            <nav className="tab-navigation-container">
+                <div className="tab-buttons-container">
                     <button 
-                        onClick={() => setBookPage(BookPageEnum.add)} className="add-button"> Adicionar Livro 
+                    className={`tab-button ${activeTab === 'books' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('books')}
+                    >
+                    Livros
                     </button>
-                    <BookList
-                    generosDisponiveis={generosDisponiveis}
-                    employees={employeeList}
-                    list={bookList}
-                    onDeleteClickHnd={deleteBook}
-                    onEdit={editBookData}
-                    />
-                </>
-                )}
-                {bookPage === BookPageEnum.add && (
-                    <AddBook 
-                        generosDisponiveis={generosDisponiveis}
-                        onBackBtnClickHnd={() => setBookPage(BookPageEnum.list)}
-                        onSubmitClickHnd={addBook}
-                    />
-                )}
-                 {bookPage === BookPageEnum.edit && dataToEditBook && (
-                    <EditBook
-                        generosDisponiveis={generosDisponiveis}
-                        data={dataToEditBook}
-                        onBackBtnClickHnd={() => setBookPage(BookPageEnum.list)}
-                        onUpdateClickHnd={updateBookData}
-                    />
-                )}
-            </>
-        )}
-
-        {/*USERS*/}
-
-        {activeTab === 'users' && (
-            <>
-                {userPage === UserPageEnum.list && (
-                <>
                     <button 
-                        onClick={() => setUserPage(UserPageEnum.add)} className="add-button"> Adicionar Usuário 
+                    className={`tab-button ${activeTab === 'users' ? 'active' : ''}`} 
+                    onClick={() => setActiveTab('users')}
+                    >
+                    Usuários
                     </button>
-                    <UserList 
-                        list={userList}
-                        onDeleteClickHnd={deleteUser}
-                        onEdit={editUserData}
-                    />
-                </>
-                )}
-                {userPage === UserPageEnum.add && (
-                    <AddUser 
-                        onBackBtnClickHnd={() => setUserPage(UserPageEnum.list)}
-                        onSubmitClickHnd={addUser}
-                    />
-                )}
-                {userPage === UserPageEnum.edit && dataToEditUser && (
-                    <EditUser 
-                        data={dataToEditUser}
-                        onBackBtnClickHnd={() => setUserPage(UserPageEnum.list)}
-                        onUpdateClickHnd={updateUserData}
-                    />
-                )}
-            </>
-        )}
-
-        {/*LOANS*/}
-
-        {activeTab === 'loans' && (
-            <>
-                {loanPage === LoanPageEnum.list && (
-                <>
-                    <button onClick={() => setLoanPage(LoanPageEnum.add)} className="add-button"
-                        disabled={bookList.filter(b => b.disponivel).length === 0 || userList.length === 0}> Registrar Empréstimo
-                    </button>
-                    {bookList.filter(b => b.disponivel).length === 0 && (
-                        <p className="warning">Nenhum livro disponível para empréstimo</p>
-                    )}
-                    {userList.length === 0 && (
-                        <p className="warning">Nenhum usuário cadastrado</p>
-                    )}
-                    <LoanList 
-                        list={loanList}
-                        onDeleteClickHnd={deleteLoan}
-                        onEdit={editLoanData}
-                        onReturn={returnLoan}                       
-                    />
-                </>
-                )}
-                {loanPage === LoanPageEnum.add && (
-                    <AddLoan 
-                        books={bookList.filter(b => b.disponivel)}
-                        users={userList}
-                        employees={employeeList}
-                        onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
-                        onSubmitClickHnd={addLoan}/>
-                )}
-                {loanPage === LoanPageEnum.edit && dataToEditLoan && (
-                    <EditLoan 
-                            data={dataToEditLoan}
-                            onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
-                            onUpdateClickHnd={updateLoanData} books={[]} users={[]} employees={[]}/>
-                )}
-            </>
-        )}
-
-        {/*EMPLOYEES*/}
-        {activeTab === 'employees' && (
-            <>
-                {employeePage === EmployeePageEnum.list && (
-                <>
                     <button 
-                        onClick={() => setEmployeePage(EmployeePageEnum.add)} className="add-button"> Adicionar Funcionário
+                    className={`tab-button ${activeTab === 'loans' ? 'active' : ''}`} 
+                    onClick={() => setActiveTab('loans')}
+                    >
+                    Empréstimos
                     </button>
-                    <EmployeeList 
-                        list={employeeList}
-                        onDeleteClickHnd={deleteEmployee}
-                        onEdit={editEmployeeData}
-                    />
-                </>
+                    <button 
+                    className={`tab-button ${activeTab === 'employees' ? 'active' : ''}`} 
+                    onClick={() => setActiveTab('employees')}
+                    >
+                    Funcionários
+                    </button>
+                </div>
+            </nav>
+            <main className="content-container">
+                {/* BOOKS */}
+                {activeTab === 'books' && (
+                    <div className="tab-content">
+                        {bookPage === BookPageEnum.list && (
+                            <>
+                                <button
+                                    onClick={() => setBookPage(BookPageEnum.add)}
+                                    className="add-button touch-button"
+                                >
+                                    Adicionar Livro
+                                </button>
+                                <BookList
+                                    generosDisponiveis={generosDisponiveis}
+                                    employees={employeeList}
+                                    list={bookList}
+                                    onDeleteClickHnd={deleteBook}
+                                    onEdit={editBookData}
+                                />
+                            </>
+                        )}
+                        {bookPage === BookPageEnum.add && (
+                            <AddBook
+                                generosDisponiveis={generosDisponiveis}
+                                onBackBtnClickHnd={() => setBookPage(BookPageEnum.list)}
+                                onSubmitClickHnd={addBook}
+                            />
+                        )}
+                        {bookPage === BookPageEnum.edit && dataToEditBook && (
+                            <EditBook
+                                generosDisponiveis={generosDisponiveis}
+                                data={dataToEditBook}
+                                onBackBtnClickHnd={() => setBookPage(BookPageEnum.list)}
+                                onUpdateClickHnd={updateBookData}
+                            />
+                        )}
+                    </div>
                 )}
-                {employeePage === EmployeePageEnum.add && (
-                    <AddEmployee 
-                        onBackBtnClickHnd={() => setEmployeePage(EmployeePageEnum.list)}
-                        onSubmitClickHnd={addEmployee}
-                    />
+
+                {/* USERS */}
+                {activeTab === 'users' && (
+                    <div className="tab-content">
+                        {userPage === UserPageEnum.list && (
+                            <>
+                                <button
+                                    onClick={() => setUserPage(UserPageEnum.add)}
+                                    className="add-button touch-button"
+                                >
+                                    Adicionar Usuário
+                                </button>
+                                <UserList
+                                    list={userList}
+                                    onDeleteClickHnd={deleteUser}
+                                    onEdit={editUserData}
+                                />
+                            </>
+                        )}
+                        {userPage === UserPageEnum.add && (
+                            <AddUser
+                                onBackBtnClickHnd={() => setUserPage(UserPageEnum.list)}
+                                onSubmitClickHnd={addUser}
+                            />
+                        )}
+                        {userPage === UserPageEnum.edit && dataToEditUser && (
+                            <EditUser
+                                data={dataToEditUser}
+                                onBackBtnClickHnd={() => setUserPage(UserPageEnum.list)}
+                                onUpdateClickHnd={updateUserData}
+                            />
+                        )}
+                    </div>
                 )}
-                {employeePage === EmployeePageEnum.edit && dataToEditEmployee && (
-                    <EditEmployee
-                        data={dataToEditEmployee}
-                        onBackBtnClickHnd={() => setEmployeePage(EmployeePageEnum.list)}
-                        onUpdateClickHnd={updateEmployeeData}
-                    />
+
+                {/* LOANS */}
+                {activeTab === 'loans' && (
+                    <div className="tab-content">
+                        {loanPage === LoanPageEnum.list && (
+                            <>
+                                <button
+                                    onClick={() => setLoanPage(LoanPageEnum.add)}
+                                    className="add-button touch-button"
+                                    disabled={bookList.filter(b => b.disponivel).length === 0 || userList.length === 0}
+                                >
+                                    Registrar Empréstimo
+                                </button>
+                                {bookList.filter(b => b.disponivel).length === 0 && (
+                                    <p className="warning">Nenhum livro disponível para empréstimo</p>
+                                )}
+                                {userList.length === 0 && (
+                                    <p className="warning">Nenhum usuário cadastrado</p>
+                                )}
+                                <LoanList
+                                    list={loanList}
+                                    onDeleteClickHnd={deleteLoan}
+                                    onEdit={editLoanData}
+                                    onReturn={returnLoan}
+                                />
+                            </>
+                        )}
+                        {loanPage === LoanPageEnum.add && (
+                            <AddLoan
+                                books={bookList.filter(b => b.disponivel)}
+                                users={userList}
+                                employees={employeeList}
+                                onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
+                                onSubmitClickHnd={addLoan}
+                            />
+                        )}
+                        {loanPage === LoanPageEnum.edit && dataToEditLoan && (
+                            <EditLoan
+                                data={dataToEditLoan}
+                                onBackBtnClickHnd={() => setLoanPage(LoanPageEnum.list)}
+                                onUpdateClickHnd={updateLoanData}
+                                books={[]}
+                                users={[]}
+                                employees={[]}
+                            />
+                        )}
+                    </div>
                 )}
-            </>
-        )}
-    </>
+
+                {/* EMPLOYEES */}
+                {activeTab === 'employees' && (
+                    <div className="tab-content">
+                        {employeePage === EmployeePageEnum.list && (
+                            <>
+                                <button
+                                    onClick={() => setEmployeePage(EmployeePageEnum.add)}
+                                    className="add-button touch-button"
+                                >
+                                    Adicionar Funcionário
+                                </button>
+                                <EmployeeList
+                                    list={employeeList}
+                                    onDeleteClickHnd={deleteEmployee}
+                                    onEdit={editEmployeeData}
+                                />
+                            </>
+                        )}
+                        {employeePage === EmployeePageEnum.add && (
+                            <AddEmployee
+                                onBackBtnClickHnd={() => setEmployeePage(EmployeePageEnum.list)}
+                                onSubmitClickHnd={addEmployee}
+                            />
+                        )}
+                        {employeePage === EmployeePageEnum.edit && dataToEditEmployee && (
+                            <EditEmployee
+                                data={dataToEditEmployee}
+                                onBackBtnClickHnd={() => setEmployeePage(EmployeePageEnum.list)}
+                                onUpdateClickHnd={updateEmployeeData}
+                            />
+                        )}
+                    </div>
+                )}
+            </main>
+        </div>
     );
-}
+};
 
 export default Home;

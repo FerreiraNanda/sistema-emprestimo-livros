@@ -51,7 +51,7 @@ return (
                                 <button aria-label="Editar" onClick={() => onEdit(user)} title="Editar" style={{ background: "none"}}>
                                     <EditIcon/>
                                 </button>
-                                <button aria-label="Excluir" onClick={() => onDeleteClickHnd(user)} title="Excluir" style={{ background: "none", border: "none", cursor: "pointer" }}>
+                                <button aria-label="Excluir" onClick={() => onDeleteClickHnd(user)} title="Excluir" style={{ background: "none", border: "none", cursor: "pointer"}}>
                                     <CloseIcon/>
                                 </button>
                                 </div>
