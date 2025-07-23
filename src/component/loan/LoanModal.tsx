@@ -16,7 +16,7 @@ const LoanModal = ({ data, onClose }: Props) => {
         <div className="modal-overlay">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h2>Detalhes do Usuário</h2>
+                        <h2>Detalhes do Empréstimo</h2>
                         <button className="touch-button  close-btn" style={{ background:"white" }} onClick={onClose} aria-label="Fechar modal">
                         <CloseIcon/>
                     </button>   
